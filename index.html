@@ -385,6 +385,145 @@
         .outro-wrap[hidden] {
             display: none
         }
+        /* ===== SEARCH SELECT ===== */
+        
+        .search-select {
+            position: relative;
+            margin-top: 10px
+        }
+        
+        .search-select-input {
+            width: 100%;
+            padding: 12px 42px 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            background-color: #fff;
+            color: var(--text);
+            cursor: pointer;
+            transition: .15s;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        .search-select-input::placeholder {
+            color: #9ca3af
+        }
+        
+        .search-select-input:hover {
+            border-color: #c7d2fe
+        }
+        
+        .search-select-input:focus,
+        .search-select.open .search-select-input {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .13);
+        }
+        
+        .search-select.open .search-select-input {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+        }
+        
+        .search-select-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(16, 24, 40, .12);
+            z-index: 100;
+            overflow: hidden;
+            animation: fade .18s ease;
+        }
+        
+        .search-select-dropdown[hidden] {
+            display: none
+        }
+        
+        .search-select-search {
+            width: 100%;
+            padding: 12px 16px;
+            border: 0;
+            border-bottom: 1px solid var(--border);
+            font: inherit;
+            font-size: 14px;
+            outline: none;
+            background: #fafbff;
+            color: var(--text);
+        }
+        
+        .search-select-search::placeholder {
+            color: #9ca3af
+        }
+        
+        .search-select-list {
+            list-style: none;
+            margin: 0;
+            padding: 6px 0;
+            max-height: 260px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        
+        .search-select-list::-webkit-scrollbar {
+            width: 8px
+        }
+        
+        .search-select-list::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px
+        }
+        
+        .search-select-list li {
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1.35;
+            transition: background .1s;
+            border-left: 3px solid transparent;
+        }
+        
+        .search-select-list li:hover,
+        .search-select-list li.highlighted {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-left-color: var(--primary);
+        }
+        
+        .search-select-list li.selected {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+            border-left-color: var(--primary);
+        }
+        
+        .search-select-list li.empty {
+            color: var(--muted);
+            cursor: default;
+            font-style: italic;
+            text-align: center;
+            padding: 16px;
+            border-left-color: transparent;
+        }
+        
+        .search-select-list li.empty:hover {
+            background: transparent;
+            color: var(--muted);
+            border-left-color: transparent;
+        }
+        
+        .campo.invalido .search-select-input {
+            border-color: #fca5a5;
+            background-color: #fffafa;
+        }
         
         .questao {
             margin: 0 0 30px;
@@ -401,7 +540,7 @@
             font-size: 15px;
             margin: 0 0 3px;
             display: flex;
-            gap: 8px;
+            gap: 8px
         }
         
         .q-num {
@@ -423,7 +562,7 @@
             font-size: 14px;
             color: var(--muted);
             margin: 0 0 2px;
-            padding-left: 30px;
+            padding-left: 30px
         }
         
         .likert {
@@ -453,7 +592,7 @@
             opacity: 0;
             pointer-events: none;
             width: 0;
-            height: 0
+            height: 0;
         }
         
         .likert-opt .num {
@@ -615,7 +754,7 @@
             margin: 0;
             font-weight: 600;
             text-align: right;
-            word-break: break-word;
+            word-break: break-word
         }
         
         .vazio {
@@ -821,6 +960,9 @@
             main {
                 padding-bottom: 120px
             }
+            .search-select-list {
+                max-height: 200px
+            }
         }
     </style>
 </head>
@@ -943,54 +1085,53 @@
                     <div class="campo" id="campo-idade">
                         <p class="campo-label">1. Qual é a sua idade? <span class="req">*</span></p>
                         <div class="opcoes">
-                            <label class="op"><input type="radio" name="idade" value="ate18"><span>Até 18 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="19-24"><span>19 a 24 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="25-29"><span>25 a 29 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="30-39"><span>30 a 39 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="40-49"><span>40 a 49 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="50+"><span>50 anos ou mais</span></label>
+                            <label class="op"><input type="radio" name="idade" value="Até 18 anos"><span>Até 18 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="19 a 24 anos"><span>19 a 24 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="25 a 29 anos"><span>25 a 29 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="30 a 39 anos"><span>30 a 39 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="40 a 49 anos"><span>40 a 49 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="50 anos ou mais"><span>50 anos ou mais</span></label>
                         </div>
                     </div>
 
                     <div class="campo" id="campo-curso">
                         <p class="campo-label">2. Qual é o seu curso? <span class="req">*</span></p>
-                        <input type="text" name="curso" placeholder="Ex.: Psicologia, Administração, Direito..." autocomplete="off">
+                        <div class="search-select" id="curso-search-select" data-placeholder="Digite para buscar seu curso...">
+                            <input type="text" class="search-select-input" placeholder="Digite para buscar seu curso..." autocomplete="off" readonly>
+                            <input type="hidden" name="curso" value="">
+                            <div class="search-select-dropdown" hidden>
+                                <input type="text" class="search-select-search" placeholder="Buscar curso..." autocomplete="off">
+                                <ul class="search-select-list" role="listbox"></ul>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="campo" id="campo-semestre">
                         <p class="campo-label">3. Em qual semestre/período do curso você está? <span class="req">*</span></p>
                         <div class="opcoes">
-                            <label class="op"><input type="radio" name="semestre" value="1-2"><span>1º ao 2º semestre</span></label>
-                            <label class="op"><input type="radio" name="semestre" value="3-4"><span>3º ao 4º semestre</span></label>
-                            <label class="op"><input type="radio" name="semestre" value="5-6"><span>5º ao 6º semestre</span></label>
-                            <label class="op"><input type="radio" name="semestre" value="7-8"><span>7º ao 8º semestre</span></label>
-                            <label class="op"><input type="radio" name="semestre" value="9+"><span>9º semestre ou superior</span></label>
-                            <label class="op"><input type="radio" name="semestre" value="outro"><span>Outro</span></label>
-                        </div>
-                        <div class="outro-wrap" id="outro-semestre" hidden>
-                            <input type="text" name="semestre_outro" placeholder="Especifique o semestre/período">
+                            <label class="op"><input type="radio" name="semestre" value="1º ao 2º semestre"><span>1º ao 2º semestre</span></label>
+                            <label class="op"><input type="radio" name="semestre" value="3º ao 4º semestre"><span>3º ao 4º semestre</span></label>
+                            <label class="op"><input type="radio" name="semestre" value="5º ao 6º semestre"><span>5º ao 6º semestre</span></label>
+                            <label class="op"><input type="radio" name="semestre" value="7º ao 8º semestre"><span>7º ao 8º semestre</span></label>
+                            <label class="op"><input type="radio" name="semestre" value="9º semestre ou superior"><span>9º semestre ou superior</span></label>
                         </div>
                     </div>
 
                     <div class="campo" id="campo-turnoEstudo">
                         <p class="campo-label">4. Qual é o turno em que você estuda? <span class="req">*</span></p>
                         <div class="opcoes">
-                            <label class="op"><input type="radio" name="turnoEstudo" value="matutino"><span>Matutino</span></label>
-                            <label class="op"><input type="radio" name="turnoEstudo" value="vespertino"><span>Vespertino</span></label>
-                            <label class="op"><input type="radio" name="turnoEstudo" value="noturno"><span>Noturno</span></label>
-                            <label class="op"><input type="radio" name="turnoEstudo" value="integral"><span>Integral</span></label>
-                            <label class="op"><input type="radio" name="turnoEstudo" value="outro"><span>Outro</span></label>
-                        </div>
-                        <div class="outro-wrap" id="outro-turnoEstudo" hidden>
-                            <input type="text" name="turnoEstudo_outro" placeholder="Especifique o turno">
+                            <label class="op"><input type="radio" name="turnoEstudo" value="Matutino"><span>Matutino</span></label>
+                            <label class="op"><input type="radio" name="turnoEstudo" value="Vespertino"><span>Vespertino</span></label>
+                            <label class="op"><input type="radio" name="turnoEstudo" value="Noturno"><span>Noturno</span></label>
+                            <label class="op"><input type="radio" name="turnoEstudo" value="Integral"><span>Integral</span></label>
                         </div>
                     </div>
 
                     <div class="campo" id="campo-trabalha">
                         <p class="campo-label">5. Você trabalha atualmente? <span class="req">*</span></p>
                         <div class="opcoes">
-                            <label class="op"><input type="radio" name="trabalha" value="sim"><span>Sim</span></label>
-                            <label class="op"><input type="radio" name="trabalha" value="nao"><span>Não</span></label>
+                            <label class="op"><input type="radio" name="trabalha" value="Sim"><span>Sim</span></label>
+                            <label class="op"><input type="radio" name="trabalha" value="Não"><span>Não</span></label>
                         </div>
                         <p class="footer-hint" style="margin-top:10px">Se você selecionar "Não", o formulário será encerrado automaticamente.</p>
                     </div>
@@ -1000,13 +1141,13 @@
                         <div class="campo" id="campo-turnoTrabalho">
                             <p class="campo-label">6. Qual é o seu turno de trabalho? <span class="req">*</span></p>
                             <div class="opcoes">
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="manha"><span>Manhã</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="tarde"><span>Tarde</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="noite"><span>Noite</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="integral"><span>Integral</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="escala"><span>Escala/revezamento</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="flexivel"><span>Horário flexível</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="outro"><span>Outro</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="Manhã"><span>Manhã</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="Tarde"><span>Tarde</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="Noite"><span>Noite</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="Integral"><span>Integral</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="Escala/revezamento"><span>Escala/revezamento</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="Horário flexível"><span>Horário flexível</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="Outro"><span>Outro</span></label>
                             </div>
                             <div class="outro-wrap" id="outro-turnoTrabalho" hidden>
                                 <input type="text" name="turnoTrabalho_outro" placeholder="Especifique o turno de trabalho">
@@ -1016,25 +1157,25 @@
                         <div class="campo" id="campo-tempoEmpresa">
                             <p class="campo-label">7. Há quanto tempo você trabalha na sua ocupação/empresa atual? <span class="req">*</span></p>
                             <div class="opcoes">
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="menos6m"><span>Menos de 6 meses</span></label>
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="6m-1a"><span>De 6 meses a 1 ano</span></label>
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="1-2a"><span>De 1 a 2 anos</span></label>
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="2-5a"><span>De 2 a 5 anos</span></label>
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="mais5a"><span>Mais de 5 anos</span></label>
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="Menos de 6 meses"><span>Menos de 6 meses</span></label>
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="De 6 meses a 1 ano"><span>De 6 meses a 1 ano</span></label>
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="De 1 a 2 anos"><span>De 1 a 2 anos</span></label>
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="De 2 a 5 anos"><span>De 2 a 5 anos</span></label>
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="Mais de 5 anos"><span>Mais de 5 anos</span></label>
                             </div>
                         </div>
 
                         <div class="campo" id="campo-relacaoTrabalho">
                             <p class="campo-label">8. Qual é a sua relação de trabalho atualmente? <span class="req">*</span></p>
                             <div class="opcoes">
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="clt"><span>Empregado(a) com carteira assinada</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="estagiario"><span>Estagiário(a)</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="bolsista"><span>Bolsista</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="servidor"><span>Servidor(a) público(a)</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="autonomo"><span>Trabalhador(a) autônomo(a)</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="empresario"><span>Empresário(a)/empreendedor(a)</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="temporario"><span>Contrato temporário</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="outro"><span>Outro</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Empregado(a) com carteira assinada"><span>Empregado(a) com carteira assinada</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Estagiário(a)"><span>Estagiário(a)</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Bolsista"><span>Bolsista</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Servidor(a) público(a)"><span>Servidor(a) público(a)</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Trabalhador(a) autônomo(a)"><span>Trabalhador(a) autônomo(a)</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Empresário(a)/empreendedor(a)"><span>Empresário(a)/empreendedor(a)</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Contrato temporário"><span>Contrato temporário</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Outro"><span>Outro</span></label>
                             </div>
                             <div class="outro-wrap" id="outro-relacaoTrabalho" hidden>
                                 <input type="text" name="relacaoTrabalho_outro" placeholder="Especifique a relação de trabalho">
@@ -1072,11 +1213,11 @@
                     <div class="campo" id="campo-perfil">
                         <p class="campo-label">9. Considerando sua experiência atual, qual característica melhor descreve o comportamento predominante do seu líder? <span class="req">*</span></p>
                         <div class="opcoes">
-                            <label class="op"><input type="radio" name="perfil" value="centralizador"><span><strong>Centralizador:</strong> concentra as decisões, determina o que deve ser feito e exerce maior controle sobre a equipe.</span></label>
-                            <label class="op"><input type="radio" name="perfil" value="participativo"><span><strong>Participativo:</strong> orienta a equipe, mas estimula a participação dos integrantes nas decisões.</span></label>
-                            <label class="op"><input type="radio" name="perfil" value="delegador"><span><strong>Delegador:</strong> delega grande parte das decisões aos integrantes da equipe, proporcionando ampla liberdade para a realização das atividades.</span></label>
-                            <label class="op"><input type="radio" name="perfil" value="adaptativo"><span><strong>Adaptativo:</strong> modifica sua forma de orientar e apoiar a equipe conforme a situação, as necessidades da tarefa e as características dos integrantes.</span></label>
-                            <label class="op"><input type="radio" name="perfil" value="nao-identifica"><span>Não consigo identificar um perfil predominante.</span></label>
+                            <label class="op"><input type="radio" name="perfil" value="Centralizador"><span><strong>Centralizador:</strong> concentra as decisões, determina o que deve ser feito e exerce maior controle sobre a equipe.</span></label>
+                            <label class="op"><input type="radio" name="perfil" value="Participativo"><span><strong>Participativo:</strong> orienta a equipe, mas estimula a participação dos integrantes nas decisões.</span></label>
+                            <label class="op"><input type="radio" name="perfil" value="Delegador"><span><strong>Delegador:</strong> delega grande parte das decisões aos integrantes da equipe, proporcionando ampla liberdade para a realização das atividades.</span></label>
+                            <label class="op"><input type="radio" name="perfil" value="Adaptativo"><span><strong>Adaptativo:</strong> modifica sua forma de orientar e apoiar a equipe conforme a situação, as necessidades da tarefa e as características dos integrantes.</span></label>
+                            <label class="op"><input type="radio" name="perfil" value="Não consigo identificar um perfil predominante"><span>Não consigo identificar um perfil predominante.</span></label>
                         </div>
                     </div>
                 </div>
@@ -1112,17 +1253,17 @@
                         </p>
                         <p class="footer-hint" style="margin:0 0 4px">Selecione até 3 alternativas.</p>
                         <div class="opcoes">
-                            <label class="op"><input type="checkbox" name="fatores" value="reconhecimento"><span>Reconhecimento pelo trabalho realizado</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="respeito"><span>Respeito e tratamento adequado por parte da liderança</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="colegas"><span>Bom relacionamento com os colegas</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="participacao"><span>Participação nas decisões</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="autonomia"><span>Autonomia para realizar minhas atividades</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="crescimento"><span>Oportunidades de crescimento profissional</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="habilidades"><span>Possibilidade de desenvolver minhas habilidades</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="seguranca"><span>Segurança e estabilidade no trabalho</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="remuneracao"><span>Remuneração e benefícios</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="proposito"><span>Sentimento de que meu trabalho possui propósito e significado</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="outro"><span>Outro</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Reconhecimento pelo trabalho realizado"><span>Reconhecimento pelo trabalho realizado</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Respeito e tratamento adequado por parte da liderança"><span>Respeito e tratamento adequado por parte da liderança</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Bom relacionamento com os colegas"><span>Bom relacionamento com os colegas</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Participação nas decisões"><span>Participação nas decisões</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Autonomia para realizar minhas atividades"><span>Autonomia para realizar minhas atividades</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Oportunidades de crescimento profissional"><span>Oportunidades de crescimento profissional</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Possibilidade de desenvolver minhas habilidades"><span>Possibilidade de desenvolver minhas habilidades</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Segurança e estabilidade no trabalho"><span>Segurança e estabilidade no trabalho</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Remuneração e benefícios"><span>Remuneração e benefícios</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Sentimento de que meu trabalho possui propósito e significado"><span>Sentimento de que meu trabalho possui propósito e significado</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="Outro"><span>Outro</span></label>
                         </div>
                         <div class="outro-wrap" id="outro-fatores" hidden>
                             <input type="text" name="fatores_outro" placeholder="Especifique outro fator">
@@ -1189,8 +1330,8 @@
 
     <script>
         /* ============================================================
-                                   1. DADOS DAS QUESTÕES
-                                   ============================================================ */
+                   1. DADOS DAS QUESTÕES
+                   ============================================================ */
         const ESCALA = [{
             v: 1,
             t: 'Discordo totalmente'
@@ -1207,6 +1348,45 @@
             v: 5,
             t: 'Concordo totalmente'
         }];
+
+        const CURSOS = [
+            'Administração Bacharelado',
+            'Agronomia Bacharelado',
+            'Arquitetura e Urbanismo Bacharelado',
+            'Ciências Biológicas Bacharelado',
+            'Ciências Biológicas Licenciatura',
+            'Ciências Contábeis Bacharelado',
+            'Ciências Econômicas Bacharelado',
+            'Ciências Sociais Bacharelado',
+            'Ciências Sociais Licenciatura',
+            'Curso de Formação de Oficiais',
+            'Direito Bacharelado',
+            'Engenharia Agronômica',
+            'Engenharia Civil Bacharelado',
+            'Engenharia da Computação Bacharelado',
+            'Engenharia de Pesca Bacharelado',
+            'Engenharia de Produção Bacharelado',
+            'Engenharia Mecânica Bacharelado',
+            'Filosofia Licenciatura',
+            'Física Licenciatura',
+            'Geografia Bacharelado',
+            'Geografia Licenciatura',
+            'História Licenciatura',
+            'Inteligência Artificial Bacharelado',
+            'Letras Licenciatura em Língua Portuguesa e Literaturas da Língua Portuguesa',
+            'Letras Licenciatura em Língua Portuguesa, Língua Espanhola e Literaturas',
+            'Letras Licenciatura em Língua Portuguesa, Língua Inglesa e Literaturas',
+            'Matemática Licenciatura',
+            'Medicina Bacharelado',
+            'Medicina Veterinária Bacharelado',
+            'Meteorologia Bacharelado',
+            'Música Licenciatura',
+            'Pedagogia Licenciatura',
+            'Psicologia Bacharelado',
+            'Química Licenciatura',
+            'Relações Internacionais Bacharelado',
+            'Zootecnia Bacharelado'
+        ];
 
         const PERCEPCAO = [{
             id: 'p1',
@@ -1293,12 +1473,10 @@
                 l: '2. Curso'
             }, {
                 n: 'semestre',
-                l: '3. Semestre/Período',
-                outro: 'semestre_outro'
+                l: '3. Semestre/Período'
             }, {
                 n: 'turnoEstudo',
-                l: '4. Turno de estudo',
-                outro: 'turnoEstudo_outro'
+                l: '4. Turno de estudo'
             }, {
                 n: 'trabalha',
                 l: '5. Trabalha atualmente'
@@ -1389,7 +1567,115 @@
         document.getElementById('listaMotivacao').innerHTML = MOTIVACAO.map(blocoLikert).join('');
 
         /* ============================================================
-           4. NAVEGAÇÃO / PROGRESSO
+           4. SEARCH SELECT (menu suspenso com busca)
+           ============================================================ */
+        function normalizar(str) {
+            return String(str).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function initSearchSelect(wrapper, opcoes) {
+            const input       = wrapper.querySelector('.search-select-input');
+            const hidden      = wrapper.querySelector('input[type="hidden"]');
+            const dropdown    = wrapper.querySelector('.search-select-dropdown');
+            const searchInput = wrapper.querySelector('.search-select-search');
+            const list        = wrapper.querySelector('.search-select-list');
+
+            let highlighted = -1;
+
+            function renderList(filtro = '') {
+                const f = normalizar(filtro);
+                const matches = opcoes.filter(c => normalizar(c).includes(f));
+                highlighted = -1;
+
+                if (matches.length === 0) {
+                    list.innerHTML = '<li class="empty">Nenhum curso encontrado</li>';
+                    return;
+                }
+
+                list.innerHTML = matches.map(c => {
+                    const sel = c === hidden.value ? 'selected' : '';
+                    const safe = c.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    return `<li data-value="${safe}" class="${sel}" role="option">${safe}</li>`;
+                }).join('');
+            }
+
+            function abrir() {
+                wrapper.classList.add('open');
+                dropdown.hidden = false;
+                searchInput.value = '';
+                renderList('');
+                searchInput.focus();
+                const sel = list.querySelector('li.selected');
+                if (sel) sel.scrollIntoView({ block: 'nearest' });
+            }
+
+            function fechar() {
+                wrapper.classList.remove('open');
+                dropdown.hidden = true;
+            }
+
+            function selecionar(valor) {
+                hidden.value = valor;
+                input.value = valor;
+                fechar();
+                wrapper.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+
+            function destacar(index) {
+                const itens = [...list.querySelectorAll('li:not(.empty)')];
+                if (itens.length === 0) return;
+                highlighted = Math.max(0, Math.min(itens.length - 1, index));
+                itens.forEach((li, i) => li.classList.toggle('highlighted', i === highlighted));
+                itens[highlighted].scrollIntoView({ block: 'nearest' });
+            }
+
+            input.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (dropdown.hidden) abrir();
+                else fechar();
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (dropdown.hidden) abrir();
+                } else if (e.key === 'Escape') {
+                    fechar();
+                }
+            });
+
+            searchInput.addEventListener('input', () => renderList(searchInput.value));
+
+            searchInput.addEventListener('keydown', (e) => {
+                const itens = [...list.querySelectorAll('li:not(.empty)')];
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault(); destacar(highlighted + 1);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault(); destacar(highlighted - 1);
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const alvo = itens[highlighted] || itens[0];
+                    if (alvo) selecionar(alvo.dataset.value);
+                } else if (e.key === 'Escape') {
+                    fechar(); input.focus();
+                }
+            });
+
+            list.addEventListener('click', (e) => {
+                const li = e.target.closest('li');
+                if (!li || li.classList.contains('empty')) return;
+                selecionar(li.dataset.value);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!wrapper.contains(e.target)) fechar();
+            });
+        }
+
+        initSearchSelect(document.getElementById('curso-search-select'), CURSOS);
+
+        /* ============================================================
+           5. NAVEGAÇÃO / PROGRESSO
            ============================================================ */
         function renderNav() {
             stepsNav.innerHTML = steps.map((s, i) => `
@@ -1435,7 +1721,7 @@
         }
 
         /* ============================================================
-           5. ERROS E VALIDAÇÃO
+           6. ERROS E VALIDAÇÃO
            ============================================================ */
         function mostrarErro(msg) {
             erroBanner.textContent = '⚠ ' + msg;
@@ -1457,6 +1743,10 @@
 
         function checked(name) {
             return document.querySelector(`input[name="${name}"]:checked`);
+        }
+
+        function ehOutro(valor) {
+            return String(valor).toLowerCase() === 'outro';
         }
 
         function validarEtapa(i) {
@@ -1488,10 +1778,10 @@
                 if (!checked('turnoEstudo')) { faltando.push('turnoEstudo'); marcarInvalido('turnoEstudo'); }
                 if (!checked('trabalha')) { faltando.push('trabalha'); marcarInvalido('trabalha'); }
 
-                const outros = ['semestre', 'turnoEstudo', 'turnoTrabalho', 'relacaoTrabalho'];
-                outros.forEach(nome => {
+                // Validação de "Outro" (case-insensitive)
+                ['turnoTrabalho', 'relacaoTrabalho'].forEach(nome => {
                     const sel = checked(nome);
-                    if (sel && sel.value === 'outro') {
+                    if (sel && ehOutro(sel.value)) {
                         const txt = document.querySelector(`input[name="${nome}_outro"]`);
                         if (txt && !txt.value.trim()) {
                             faltando.push(nome);
@@ -1502,7 +1792,7 @@
                 });
 
                 const trabalha = checked('trabalha');
-                if (trabalha && trabalha.value === 'nao' && faltando.length === 0) {
+                if (trabalha && trabalha.value === 'Não' && faltando.length === 0) {
                     encerrar(
                         'Formulário encerrado',
                         'Esta pesquisa é direcionada a estudantes universitários que estão trabalhando atualmente. Como você indicou não estar trabalhando no momento, sua participação se encerra aqui. Agradecemos muito pelo seu interesse!'
@@ -1510,7 +1800,7 @@
                     return false;
                 }
 
-                if (trabalha && trabalha.value === 'sim') {
+                if (trabalha && trabalha.value === 'Sim') {
                     if (!checked('turnoTrabalho')) { faltando.push('turnoTrabalho'); marcarInvalido('turnoTrabalho'); }
                     if (!checked('tempoEmpresa')) { faltando.push('tempoEmpresa'); marcarInvalido('tempoEmpresa'); }
                     if (!checked('relacaoTrabalho')) { faltando.push('relacaoTrabalho'); marcarInvalido('relacaoTrabalho'); }
@@ -1564,7 +1854,7 @@
                     mostrarErro(`Você selecionou ${marcados.length} fatores. O limite é de 3 alternativas.`);
                     return false;
                 }
-                if (marcados.some(m => m.value === 'outro')) {
+                if (marcados.some(m => ehOutro(m.value))) {
                     const txt = document.querySelector('input[name="fatores_outro"]');
                     if (!txt.value.trim()) {
                         marcarInvalido('fatores');
@@ -1579,7 +1869,7 @@
         }
 
         /* ============================================================
-           6. COLETA DE DADOS
+           7. COLETA DE DADOS
            ============================================================ */
         function coletarDados() {
             const fd = new FormData(form);
@@ -1605,8 +1895,9 @@
                 const o = ESCALA.find(e => String(e.v) === String(value));
                 return o ? `${o.v} – ${o.t}` : String(value);
             }
+            if (name === 'curso') return String(value);
             const inp = document.querySelector(`input[name="${name}"][value="${CSS.escape(String(value))}"]`);
-            if (inp) {
+            if (inp && inp.type !== 'hidden') {
                 const span = inp.parentElement.querySelector('span:not(.num)');
                 if (span) return span.textContent.trim();
             }
@@ -1614,7 +1905,7 @@
         }
 
         /* ============================================================
-           7. RESUMO DA REVISÃO
+           8. RESUMO DA REVISÃO
            ============================================================ */
         function fmtItem(it, data) {
             const v = data[it.n];
@@ -1650,17 +1941,18 @@
         }
 
         /* ============================================================
-           8. CONDICIONAIS
+           9. CONDICIONAIS
            ============================================================ */
         function atualizarCondicionais() {
-            document.querySelectorAll('input[value="outro"]').forEach(inp => {
+            // Mostra/esconde campos "Outro" — case-insensitive
+            document.querySelectorAll('input[value="outro" i]').forEach(inp => {
                 const wrap = document.getElementById('outro-' + inp.name);
                 if (wrap) wrap.hidden = !inp.checked;
             });
 
             const trabalha = checked('trabalha');
             const bloco = document.getElementById('blocoTrabalho');
-            if (trabalha && trabalha.value === 'sim') {
+            if (trabalha && trabalha.value === 'Sim') {
                 bloco.hidden = false;
             } else {
                 bloco.hidden = true;
@@ -1668,7 +1960,7 @@
         }
 
         /* ============================================================
-           9. CONTADOR DE FATORES
+           10. CONTADOR DE FATORES
            ============================================================ */
         function atualizarContador() {
             const marcados = document.querySelectorAll('input[name="fatores"]:checked').length;
@@ -1679,7 +1971,7 @@
         }
 
         /* ============================================================
-           10. RASCUNHO (localStorage)
+           11. RASCUNHO (localStorage)
            ============================================================ */
         let timerRascunho = null;
 
@@ -1706,8 +1998,17 @@
                     if (el && (el.type === 'radio' || el.type === 'checkbox')) el.checked = true;
                 });
 
+                // Campos de texto comuns
                 const txt = document.querySelector(`input[type="text"][name="${k}"]`);
                 if (txt && typeof v === 'string') txt.value = v;
+
+                // Search select: restaura hidden + input visível
+                const searchHidden = document.querySelector(`.search-select input[type="hidden"][name="${k}"]`);
+                if (searchHidden && typeof v === 'string' && v) {
+                    searchHidden.value = v;
+                    const visivel = searchHidden.parentElement.querySelector('.search-select-input');
+                    if (visivel) visivel.value = v;
+                }
             });
 
             atualizarCondicionais();
@@ -1719,7 +2020,7 @@
         }
 
         /* ============================================================
-           11. ENCERRAMENTO E ENVIO
+           12. ENCERRAMENTO E ENVIO
            ============================================================ */
         function encerrar(titulo, mensagem) {
             form.hidden = true;
@@ -1748,16 +2049,12 @@
             try {
                 const resposta = await fetch('https://script.google.com/macros/s/AKfycbxsX8S2uCMwF0n8enEsOAwYsPfARNmUX2OOtSPTqZtHdlAMLQPpOFMG9_toun3SsEh7/exec', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8'
-                    },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(data),
                     redirect: 'follow'
                 });
 
-                if (!resposta.ok) {
-                    throw new Error('Servidor respondeu ' + resposta.status);
-                }
+                if (!resposta.ok) throw new Error('Servidor respondeu ' + resposta.status);
 
                 try {
                     localStorage.setItem(STORAGE_ENVIO, JSON.stringify(data));
@@ -1781,14 +2078,12 @@
         }
 
         /* ============================================================
-           12. DOWNLOAD / CÓPIA
+           13. DOWNLOAD / CÓPIA
            ============================================================ */
         function obterRespostas() {
             let raw = null;
             try { raw = localStorage.getItem(STORAGE_ENVIO); } catch (e) {}
-            if (raw) {
-                try { return JSON.parse(raw); } catch (e) {}
-            }
+            if (raw) { try { return JSON.parse(raw); } catch (e) {} }
             return coletarDados();
         }
 
@@ -1826,7 +2121,7 @@
         }
 
         /* ============================================================
-           13. EVENTOS
+           14. EVENTOS
            ============================================================ */
         btnAvancar.addEventListener('click', () => {
             if (!validarEtapa(atual)) return;
@@ -1852,7 +2147,7 @@
             atualizarCondicionais();
             atualizarContador();
             salvarRascunho();
-            const bloco = e.target.closest('.questao, .campo');
+            const bloco = e.target.closest && e.target.closest('.questao, .campo');
             if (bloco) bloco.classList.remove('invalido');
             if (e.target.type === 'text') e.target.style.borderColor = '';
         });
@@ -1887,7 +2182,7 @@
         });
 
         /* ============================================================
-           14. INICIALIZAÇÃO
+           15. INICIALIZAÇÃO
            ============================================================ */
         restaurarRascunho();
         atualizarCondicionais();
