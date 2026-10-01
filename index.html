@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pesquisa — Perfil de Liderança no Trabalho</title>
+    <style>
+         :root {
+            --bg: #f4f6fb;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --border: #e5e7eb;
+            --success: #059669;
+            --danger: #dc2626;
+            --radius: 14px;
+            --shadow: 0 1px 3px rgba(16, 24, 40, .06), 0 1px 2px rgba(16, 24, 40, .04);
+        }
+        
+        * {
+            box-sizing: border-box
+        }
+        
+        html {
+            scroll-behavior: smooth
+        }
+        
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            font-size: 16px;
+        }
+        
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .topbar-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 12px 20px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0
+        }
+        
+        .brand-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            flex: none;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, .35);
+        }
+        
+        .brand strong {
+            display: block;
+            font-size: 14px;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+        
+        .brand small {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+        
+        .step-count {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 5px 11px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        
+        .progress {
+            height: 5px;
+            background: #e8edf5;
+            overflow: hidden
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            transition: width .35s cubic-bezier(.4, 0, .2, 1);
+        }
+        
+        .steps-nav {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8px 20px 10px;
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .steps-nav::-webkit-scrollbar {
+            display: none
+        }
+        
+        .step-dot {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 12px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: .15s;
+        }
+        
+        .step-dot span {
+            display: inline-flex;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            color: #6b7280;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            flex: none;
+            transition: .15s;
+        }
+        
+        .step-dot:hover {
+            background: #f1f5f9
+        }
+        
+        .step-dot.active {
+            color: var(--primary);
+            background: var(--primary-light)
+        }
+        
+        .step-dot.active span {
+            background: var(--primary);
+            color: #fff
+        }
+        
+        .step-dot.done span {
+            background: #a7f3d0;
+            color: #065f46
+        }
+        
+        .step-dot em {
+            font-style: normal
+        }
+        
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 20px 130px
+        }
+        
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .step {
+            display: none
+        }
+        
+        .step.active {
+            display: block;
+            animation: fade .32s ease
+        }
+        
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+        
+        .eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+        
+        h2 {
+            font-size: 23px;
+            line-height: 1.25;
+            margin: 0 0 10px;
+            letter-spacing: -.02em
+        }
+        
+        h3 {
+            font-size: 16px;
+            margin: 26px 0 8px;
+            letter-spacing: -.01em
+        }
+        
+        p {
+            margin: 0 0 12px
+        }
+        
+        .lead {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 18px
+        }
+        
+        .texto-bloco {
+            font-size: 15px;
+            color: #374151
+        }
+        
+        .texto-bloco ul {
+            margin: 8px 0 14px;
+            padding-left: 22px
+        }
+        
+        .texto-bloco li {
+            margin-bottom: 5px
+        }
+        
+        .info-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--primary);
+            border-radius: 10px;
+            padding: 16px 18px;
+            margin: 18px 0;
+            font-size: 14px;
+        }
+        
+        .info-box strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px
+        }
+        
+        .info-box ul {
+            margin: 6px 0 0;
+            padding-left: 20px
+        }
+        
+        .info-box li {
+            margin-bottom: 3px
+        }
+        
+        .pesquisadores {
+            font-size: 13px;
+            color: #374151;
+            line-height: 1.7
+        }
+        
+        .campo {
+            margin: 0 0 26px
+        }
+        
+        .campo-label {
+            font-weight: 600;
+            font-size: 15px;
+            margin: 0 0 4px;
+            display: flex;
+            gap: 6px;
+            align-items: baseline;
+        }
+        
+        .req {
+            color: var(--danger);
+            font-weight: 700
+        }
+        
+        .opcoes {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px
+        }
+        
+        .op {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 11px 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .15s;
+            font-size: 15px;
+            background: #fff;
+        }
+        
+        .op:hover {
+            border-color: #c7d2fe;
+            background: #fafbff
+        }
+        
+        .op input {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+            flex: none;
+            cursor: pointer;
+            margin: 0;
+        }
+        
+        .op:has(input:checked) {
+            border-color: var(--primary);
+            background: var(--primary-light)
+        }
+        
+        .op span {
+            flex: 1
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            background: #fff;
+            color: var(--text);
+            transition: .15s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .13);
+        }
+        
+        .outro-wrap {
+            margin-top: 8px
+        }
+        
+        .outro-wrap[hidden] {
+            display: none
+        }
+        
+        .questao {
+            margin: 0 0 30px;
+            border-radius: 12px;
+            transition: .2s
+        }
+        
+        .questao:last-child {
+            margin-bottom: 0
+        }
+        
+        .q-titulo {
+            font-weight: 600;
+            font-size: 15px;
+            margin: 0 0 3px;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .q-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 800;
+            flex: none;
+            margin-top: 1px;
+        }
+        
+        .q-texto {
+            font-size: 14px;
+            color: var(--muted);
+            margin: 0 0 2px;
+            padding-left: 30px;
+        }
+        
+        .likert {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-top: 12px
+        }
+        
+        .likert-opt {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 6px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: .15s;
+            background: #fff;
+        }
+        
+        .likert-opt input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            height: 0
+        }
+        
+        .likert-opt .num {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #f1f5f9;
+            font-weight: 700;
+            font-size: 14px;
+            color: #475569;
+            transition: .15s;
+        }
+        
+        .likert-opt .lbl {
+            font-size: 11px;
+            line-height: 1.25;
+            color: var(--muted);
+            transition: .15s
+        }
+        
+        .likert-opt:hover {
+            border-color: #c7d2fe;
+            background: #fafbff
+        }
+        
+        .likert-opt:has(input:checked) {
+            border-color: var(--primary);
+            background: var(--primary-light)
+        }
+        
+        .likert-opt:has(input:checked) .num {
+            background: var(--primary);
+            color: #fff;
+            transform: scale(1.06)
+        }
+        
+        .likert-opt:has(input:checked) .lbl {
+            color: var(--primary-dark);
+            font-weight: 600
+        }
+        
+        .likert-opt:has(input:focus-visible) {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px
+        }
+        
+        .legenda {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            background: #f8fafc;
+            border: 1px dashed var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+        
+        .legenda b {
+            color: var(--primary)
+        }
+        
+        .contador {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 4px 11px;
+            border-radius: 999px;
+        }
+        
+        .contador.limite {
+            color: var(--success);
+            background: #ecfdf5
+        }
+        
+        .contador.excedido {
+            color: var(--danger);
+            background: #fef2f2
+        }
+        
+        .erro-banner {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 13px 16px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            font-weight: 600;
+            scroll-margin-top: 160px;
+            display: flex;
+            gap: 9px;
+            align-items: flex-start;
+        }
+        
+        .erro-banner[hidden] {
+            display: none
+        }
+        
+        .questao.invalido {
+            outline: 2px solid #fecaca;
+            outline-offset: 9px
+        }
+        
+        .campo.invalido .opcoes .op {
+            border-color: #fecaca
+        }
+        
+        .campo.invalido input[type="text"] {
+            border-color: #fca5a5;
+            background: #fffafa
+        }
+        
+        .resumo-secao {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            background: #fcfdff;
+        }
+        
+        .resumo-secao h3 {
+            margin: 0 0 12px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--primary);
+            font-weight: 800;
+        }
+        
+        .resumo-secao dl {
+            margin: 0
+        }
+        
+        .resumo-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            padding: 8px 0;
+            border-bottom: 1px dashed #eef2f7;
+            font-size: 14px;
+        }
+        
+        .resumo-item:last-child {
+            border-bottom: 0;
+            padding-bottom: 0
+        }
+        
+        .resumo-item dt {
+            color: var(--muted);
+            font-weight: 500
+        }
+        
+        .resumo-item dd {
+            margin: 0;
+            font-weight: 600;
+            text-align: right;
+            word-break: break-word;
+        }
+        
+        .vazio {
+            color: #9ca3af;
+            font-weight: 400;
+            font-style: italic
+        }
+        
+        .outro-val {
+            color: var(--muted);
+            font-weight: 400
+        }
+        
+        .final {
+            text-align: center;
+            padding: 46px 30px
+        }
+        
+        .final-icon {
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: grid;
+            place-items: center;
+            font-size: 36px;
+            color: #fff;
+            background: linear-gradient(135deg, #059669, #10b981);
+            box-shadow: 0 8px 22px rgba(5, 150, 105, .3);
+            animation: pop .45s cubic-bezier(.18, .89, .32, 1.28);
+        }
+        
+        @keyframes pop {
+            from {
+                transform: scale(.4);
+                opacity: 0
+            }
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+        
+        .final h2 {
+            margin-bottom: 10px
+        }
+        
+        .final p {
+            color: var(--muted);
+            max-width: 520px;
+            margin: 0 auto 22px
+        }
+        
+        .acoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center
+        }
+        
+        .btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: .15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .btn.primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, .25);
+        }
+        
+        .btn.primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px)
+        }
+        
+        .btn.primary:active {
+            transform: none
+        }
+        
+        .btn.ghost {
+            background: #fff;
+            color: var(--text);
+            border: 1px solid var(--border)
+        }
+        
+        .btn.ghost:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1
+        }
+        
+        .btn.small {
+            padding: 9px 16px;
+            font-size: 13.5px
+        }
+        
+        .btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+            transform: none!important
+        }
+        
+        .btn:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px
+        }
+        
+        .footer-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 40;
+            background: rgba(255, 255, 255, .96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom));
+        }
+        
+        .footer-nav[hidden] {
+            display: none
+        }
+        
+        .footer-nav .inner {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .footer-hint {
+            font-size: 12.5px;
+            color: var(--muted)
+        }
+        
+        @media (max-width:640px) {
+            body {
+                font-size: 15px
+            }
+            .card {
+                padding: 22px 18px
+            }
+            h2 {
+                font-size: 20px
+            }
+            .brand small {
+                display: none
+            }
+            .step-dot em {
+                display: none
+            }
+            .step-dot {
+                padding: 4px 6px
+            }
+            .likert {
+                grid-template-columns: 1fr;
+                gap: 6px
+            }
+            .likert-opt {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 12px;
+                padding: 11px 13px;
+                text-align: left;
+            }
+            .likert-opt .num {
+                width: 26px;
+                height: 26px;
+                font-size: 13px
+            }
+            .likert-opt .lbl {
+                font-size: 13.5px
+            }
+            .q-texto {
+                padding-left: 0
+            }
+            .resumo-item {
+                grid-template-columns: 1fr;
+                gap: 2px
+            }
+            .resumo-item dd {
+                text-align: left
+            }
+            .footer-hint {
+                display: none
+            }
+            main {
+                padding-bottom: 120px
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <div class="brand-dot"></div>
+                <div>
+                    <strong>Perfil de Liderança no Trabalho</strong>
+                    <small>Psicologia Organizacional e do Trabalho — Abordagem Humanística</small>
+                </div>
+            </div>
+            <div class="step-count" id="stepCount">Etapa 1 de 8</div>
+        </div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="12" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <nav class="steps-nav" id="stepsNav" aria-label="Etapas do formulário"></nav>
+    </header>
+
+    <main>
+        <div class="erro-banner" id="erroBanner" role="alert" aria-live="assertive" hidden></div>
+
+        <form id="pesquisa" novalidate>
+
+            <!-- ETAPA 0 — APRESENTAÇÃO -->
+            <section class="step active" id="step-0" data-title="Apresentação">
+                <div class="card">
+                    <span class="eyebrow">Etapa 1 · Apresentação</span>
+                    <h2>Perfil de liderança no trabalho: percepção dos estudantes universitários</h2>
+                    <p class="lead">Psicologia Organizacional e do Trabalho — Abordagem Humanística</p>
+
+                    <div class="texto-bloco">
+                        <p>Prezado(a) participante,</p>
+                        <p>
+                            Somos estudantes da disciplina de <strong>Psicologia Organizacional e do Trabalho</strong> e estamos realizando uma atividade acadêmica sobre <strong>Liderança no Trabalho</strong>, a partir da perspectiva da <strong>Abordagem Humanística</strong>.
+                        </p>
+                        <p>
+                            A pesquisa busca compreender como os estudantes universitários que trabalham percebem e vivenciam o perfil de liderança existente em seu ambiente profissional, considerando aspectos relacionados à participação, autonomia, comunicação, confiança, reconhecimento,
+                            motivação e satisfação no trabalho.
+                        </p>
+                    </div>
+
+                    <h3>Objetivo da pesquisa</h3>
+                    <p class="texto-bloco">
+                        Analisar, sob a ótica da Abordagem Humanística da Psicologia Organizacional e do Trabalho, o perfil de liderança vivenciado e percebido pelos estudantes universitários em seu ambiente profissional, buscando compreender sua relação com a motivação, satisfação,
+                        participação, autonomia e comportamento no trabalho.
+                    </p>
+
+                    <h3>Quem somos</h3>
+                    <div class="info-box">
+                        <strong>Esta pesquisa está sendo realizada por estudantes da disciplina de Psicologia Organizacional e do Trabalho, sob orientação do(a) professor(a):</strong>
+                        <ul>
+                            <li><strong>Professor(a):</strong> DRA. ROSSANE CARDOSO CARVALHO</li>
+                            <li><strong>Curso:</strong> ENGENHARIA DE PRODUÇÃO BACHARELADO</li>
+                            <li><strong>Instituição:</strong> UNIVERSIDADE ESTADUAL DO MARANHÃO</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>Pesquisadores(as) — Grupo 1</strong>
+                        <div class="pesquisadores">
+                            Andrey Lopes Reis · Breno Murilo Amorim Santos · Diego Bezerra Reinaldo · Emilly Karoline Ramos Araújo · Marília Evelyn Fernandes Ferreira · Paulo Sérgio Lisboa · Ruan Kheven Sardinha Marques
+                        </div>
+                    </div>
+
+                    <h3>Forma de coleta</h3>
+                    <p class="texto-bloco">
+                        A coleta será realizada por meio de questionário eletrônico, composto por perguntas de caracterização dos participantes e questões objetivas sobre a percepção da liderança no ambiente de trabalho.
+                    </p>
+                    <ul class="texto-bloco">
+                        <li>O preenchimento levará aproximadamente <strong>5 a 10 minutos</strong>.</li>
+                        <li>Não será necessário informar nome, CPF, matrícula, nome da empresa ou outras informações que permitam a identificação individual do participante ou de seu empregador.</li>
+                        <li>Suas respostas ficam salvas automaticamente neste navegador enquanto você preenche.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ETAPA 1 — TCLE -->
+            <section class="step" id="step-1" data-title="Consentimento">
+                <div class="card">
+                    <span class="eyebrow">Etapa 2 · Consentimento</span>
+                    <h2>Termo de Consentimento Livre e Esclarecido — TCLE</h2>
+
+                    <div class="texto-bloco">
+                        <p>Você está sendo convidado(a) a participar <strong>voluntariamente</strong> desta atividade acadêmica sobre <strong>Perfil de Liderança no Trabalho</strong>.</p>
+                        <p>Sua participação consiste em responder a este questionário, fornecendo informações sobre sua experiência como estudante e trabalhador e sobre a forma como percebe a liderança existente em seu ambiente profissional.</p>
+                        <p>Sua participação é voluntária. Você poderá deixar de responder ao questionário ou interromper sua participação a qualquer momento, sem qualquer prejuízo.</p>
+                        <p>As informações serão utilizadas para <strong>fins acadêmicos e didáticos</strong>, especialmente para análise e discussão dos resultados na disciplina de Psicologia Organizacional e do Trabalho.</p>
+                        <p>Não serão solicitados nome, CPF, matrícula, nome da empresa ou outras informações destinadas a identificar individualmente o participante.</p>
+                    </div>
+
+                    <div class="campo" id="campo-consentimento">
+                        <p class="campo-label">Você concorda em participar desta pesquisa? <span class="req">*</span></p>
+                        <div class="opcoes">
+                            <label class="op">
+                                <input type="radio" name="consentimento" value="sim">
+                                <span>Sim, concordo em participar.</span>
+                            </label>
+                            <label class="op">
+                                <input type="radio" name="consentimento" value="nao">
+                                <span>Não, não desejo participar.</span>
+                            </label>
+                        </div>
+                        <p class="footer-hint" style="margin-top:10px">Se você selecionar "Não", o formulário será encerrado automaticamente.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ETAPA 2 — CARACTERIZAÇÃO -->
+            <section class="step" id="step-2" data-title="Caracterização">
+                <div class="card">
+                    <span class="eyebrow">Etapa 3 · Caracterização</span>
+                    <h2>Caracterização dos participantes</h2>
+                    <p class="lead">Estas informações ajudam a contextualizar as respostas. Nenhum dado permite identificação individual.</p>
+
+                    <div class="campo" id="campo-idade">
+                        <p class="campo-label">1. Qual é a sua idade? <span class="req">*</span></p>
+                        <div class="opcoes">
+                            <label class="op"><input type="radio" name="idade" value="ate18"><span>Até 18 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="19-24"><span>19 a 24 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="25-29"><span>25 a 29 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="30-39"><span>30 a 39 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="40-49"><span>40 a 49 anos</span></label>
+                            <label class="op"><input type="radio" name="idade" value="50+"><span>50 anos ou mais</span></label>
+                        </div>
+                    </div>
+
+                    <div class="campo" id="campo-curso">
+                        <p class="campo-label">2. Qual é o seu curso? <span class="req">*</span></p>
+                        <input type="text" name="curso" placeholder="Ex.: Psicologia, Administração, Direito..." autocomplete="off">
+                    </div>
+
+                    <div class="campo" id="campo-semestre">
+                        <p class="campo-label">3. Em qual semestre/período do curso você está? <span class="req">*</span></p>
+                        <div class="opcoes">
+                            <label class="op"><input type="radio" name="semestre" value="1-2"><span>1º ao 2º semestre</span></label>
+                            <label class="op"><input type="radio" name="semestre" value="3-4"><span>3º ao 4º semestre</span></label>
+                            <label class="op"><input type="radio" name="semestre" value="5-6"><span>5º ao 6º semestre</span></label>
+                            <label class="op"><input type="radio" name="semestre" value="7-8"><span>7º ao 8º semestre</span></label>
+                            <label class="op"><input type="radio" name="semestre" value="9+"><span>9º semestre ou superior</span></label>
+                            <label class="op"><input type="radio" name="semestre" value="outro"><span>Outro</span></label>
+                        </div>
+                        <div class="outro-wrap" id="outro-semestre" hidden>
+                            <input type="text" name="semestre_outro" placeholder="Especifique o semestre/período">
+                        </div>
+                    </div>
+
+                    <div class="campo" id="campo-turnoEstudo">
+                        <p class="campo-label">4. Qual é o turno em que você estuda? <span class="req">*</span></p>
+                        <div class="opcoes">
+                            <label class="op"><input type="radio" name="turnoEstudo" value="matutino"><span>Matutino</span></label>
+                            <label class="op"><input type="radio" name="turnoEstudo" value="vespertino"><span>Vespertino</span></label>
+                            <label class="op"><input type="radio" name="turnoEstudo" value="noturno"><span>Noturno</span></label>
+                            <label class="op"><input type="radio" name="turnoEstudo" value="integral"><span>Integral</span></label>
+                            <label class="op"><input type="radio" name="turnoEstudo" value="outro"><span>Outro</span></label>
+                        </div>
+                        <div class="outro-wrap" id="outro-turnoEstudo" hidden>
+                            <input type="text" name="turnoEstudo_outro" placeholder="Especifique o turno">
+                        </div>
+                    </div>
+
+                    <div class="campo" id="campo-trabalha">
+                        <p class="campo-label">5. Você trabalha atualmente? <span class="req">*</span></p>
+                        <div class="opcoes">
+                            <label class="op"><input type="radio" name="trabalha" value="sim"><span>Sim</span></label>
+                            <label class="op"><input type="radio" name="trabalha" value="nao"><span>Não</span></label>
+                        </div>
+                        <p class="footer-hint" style="margin-top:10px">Se você selecionar "Não", o formulário será encerrado automaticamente.</p>
+                    </div>
+
+                    <div id="blocoTrabalho" hidden>
+
+                        <div class="campo" id="campo-turnoTrabalho">
+                            <p class="campo-label">6. Qual é o seu turno de trabalho? <span class="req">*</span></p>
+                            <div class="opcoes">
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="manha"><span>Manhã</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="tarde"><span>Tarde</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="noite"><span>Noite</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="integral"><span>Integral</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="escala"><span>Escala/revezamento</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="flexivel"><span>Horário flexível</span></label>
+                                <label class="op"><input type="radio" name="turnoTrabalho" value="outro"><span>Outro</span></label>
+                            </div>
+                            <div class="outro-wrap" id="outro-turnoTrabalho" hidden>
+                                <input type="text" name="turnoTrabalho_outro" placeholder="Especifique o turno de trabalho">
+                            </div>
+                        </div>
+
+                        <div class="campo" id="campo-tempoEmpresa">
+                            <p class="campo-label">7. Há quanto tempo você trabalha na sua ocupação/empresa atual? <span class="req">*</span></p>
+                            <div class="opcoes">
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="menos6m"><span>Menos de 6 meses</span></label>
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="6m-1a"><span>De 6 meses a 1 ano</span></label>
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="1-2a"><span>De 1 a 2 anos</span></label>
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="2-5a"><span>De 2 a 5 anos</span></label>
+                                <label class="op"><input type="radio" name="tempoEmpresa" value="mais5a"><span>Mais de 5 anos</span></label>
+                            </div>
+                        </div>
+
+                        <div class="campo" id="campo-relacaoTrabalho">
+                            <p class="campo-label">8. Qual é a sua relação de trabalho atualmente? <span class="req">*</span></p>
+                            <div class="opcoes">
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="clt"><span>Empregado(a) com carteira assinada</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="estagiario"><span>Estagiário(a)</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="bolsista"><span>Bolsista</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="servidor"><span>Servidor(a) público(a)</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="autonomo"><span>Trabalhador(a) autônomo(a)</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="empresario"><span>Empresário(a)/empreendedor(a)</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="temporario"><span>Contrato temporário</span></label>
+                                <label class="op"><input type="radio" name="relacaoTrabalho" value="outro"><span>Outro</span></label>
+                            </div>
+                            <div class="outro-wrap" id="outro-relacaoTrabalho" hidden>
+                                <input type="text" name="relacaoTrabalho_outro" placeholder="Especifique a relação de trabalho">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ETAPA 3 — PERCEPÇÃO -->
+            <section class="step" id="step-3" data-title="Liderança">
+                <div class="card">
+                    <span class="eyebrow">Etapa 4 · Percepção</span>
+                    <h2>Percepção sobre o perfil de liderança</h2>
+                    <p class="lead">Considerando o <strong>líder, chefe ou superior com quem você possui maior contato</strong> no seu trabalho atual, indique o quanto você concorda com cada afirmação.</p>
+                    <div class="legenda">
+                        <span><b>1</b> Discordo totalmente</span>
+                        <span><b>2</b> Discordo parcialmente</span>
+                        <span><b>3</b> Nem concordo nem discordo</span>
+                        <span><b>4</b> Concordo parcialmente</span>
+                        <span><b>5</b> Concordo totalmente</span>
+                    </div>
+                    <div id="listaPercepcao"></div>
+                </div>
+            </section>
+
+            <!-- ETAPA 4 — PERFIL -->
+            <section class="step" id="step-4" data-title="Perfil">
+                <div class="card">
+                    <span class="eyebrow">Etapa 5 · Perfil predominante</span>
+                    <h2>Identificação do perfil predominante</h2>
+                    <p class="lead">Escolha apenas uma alternativa.</p>
+
+                    <div class="campo" id="campo-perfil">
+                        <p class="campo-label">9. Considerando sua experiência atual, qual característica melhor descreve o comportamento predominante do seu líder? <span class="req">*</span></p>
+                        <div class="opcoes">
+                            <label class="op"><input type="radio" name="perfil" value="centralizador"><span><strong>Centralizador:</strong> concentra as decisões, determina o que deve ser feito e exerce maior controle sobre a equipe.</span></label>
+                            <label class="op"><input type="radio" name="perfil" value="participativo"><span><strong>Participativo:</strong> orienta a equipe, mas estimula a participação dos integrantes nas decisões.</span></label>
+                            <label class="op"><input type="radio" name="perfil" value="delegador"><span><strong>Delegador:</strong> delega grande parte das decisões aos integrantes da equipe, proporcionando ampla liberdade para a realização das atividades.</span></label>
+                            <label class="op"><input type="radio" name="perfil" value="adaptativo"><span><strong>Adaptativo:</strong> modifica sua forma de orientar e apoiar a equipe conforme a situação, as necessidades da tarefa e as características dos integrantes.</span></label>
+                            <label class="op"><input type="radio" name="perfil" value="nao-identifica"><span>Não consigo identificar um perfil predominante.</span></label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ETAPA 5 — MOTIVAÇÃO -->
+            <section class="step" id="step-5" data-title="Motivação">
+                <div class="card">
+                    <span class="eyebrow">Etapa 6 · Motivação e satisfação</span>
+                    <h2>Motivação, satisfação e participação</h2>
+                    <p class="lead">Indique o quanto você concorda com cada afirmação.</p>
+                    <div class="legenda">
+                        <span><b>1</b> Discordo totalmente</span>
+                        <span><b>2</b> Discordo parcialmente</span>
+                        <span><b>3</b> Nem concordo nem discordo</span>
+                        <span><b>4</b> Concordo parcialmente</span>
+                        <span><b>5</b> Concordo totalmente</span>
+                    </div>
+                    <div id="listaMotivacao"></div>
+                </div>
+            </section>
+
+            <!-- ETAPA 6 — FATORES -->
+            <section class="step" id="step-6" data-title="Fatores">
+                <div class="card">
+                    <span class="eyebrow">Etapa 7 · Fatores de motivação</span>
+                    <h2>Fatores de motivação</h2>
+
+                    <div class="campo" id="campo-fatores">
+                        <p class="campo-label" style="justify-content:space-between;align-items:center">
+                            <span>15. Quais fatores mais contribuem para sua motivação no trabalho? <span class="req">*</span></span>
+                            <span class="contador" id="contadorFatores">0/3</span>
+                        </p>
+                        <p class="footer-hint" style="margin:0 0 4px">Selecione até 3 alternativas.</p>
+                        <div class="opcoes">
+                            <label class="op"><input type="checkbox" name="fatores" value="reconhecimento"><span>Reconhecimento pelo trabalho realizado</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="respeito"><span>Respeito e tratamento adequado por parte da liderança</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="colegas"><span>Bom relacionamento com os colegas</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="participacao"><span>Participação nas decisões</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="autonomia"><span>Autonomia para realizar minhas atividades</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="crescimento"><span>Oportunidades de crescimento profissional</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="habilidades"><span>Possibilidade de desenvolver minhas habilidades</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="seguranca"><span>Segurança e estabilidade no trabalho</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="remuneracao"><span>Remuneração e benefícios</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="proposito"><span>Sentimento de que meu trabalho possui propósito e significado</span></label>
+                            <label class="op"><input type="checkbox" name="fatores" value="outro"><span>Outro</span></label>
+                        </div>
+                        <div class="outro-wrap" id="outro-fatores" hidden>
+                            <input type="text" name="fatores_outro" placeholder="Especifique outro fator">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ETAPA 7 — REVISÃO -->
+            <section class="step" id="step-7" data-title="Revisão">
+                <div class="card">
+                    <span class="eyebrow">Etapa 8 · Revisão</span>
+                    <h2>Revisão das suas respostas</h2>
+                    <p class="lead">Confira abaixo o resumo das suas respostas. Se necessário, use o botão <strong>Voltar</strong> para corrigir alguma informação antes de enviar.</p>
+
+                    <div id="resumo"></div>
+
+                    <div class="acoes" style="margin-top:22px;justify-content:flex-start">
+                        <button type="button" class="btn ghost small" id="btnBaixarRascunho">⬇ Baixar respostas (JSON)</button>
+                        <button type="button" class="btn ghost small" id="btnCopiarRascunho">⧉ Copiar respostas</button>
+                        <button type="button" class="btn ghost small" id="btnLimparRascunho">🗑 Limpar rascunho salvo</button>
+                    </div>
+
+                    <p class="footer-hint" style="margin-top:18px">
+                        Ao clicar em <strong>Enviar respostas</strong>, você confirma que leu o TCLE e que suas respostas podem ser utilizadas para fins acadêmicos e didáticos.
+                    </p>
+                </div>
+            </section>
+
+        </form>
+
+        <div class="card final" id="telaEncerramento" hidden>
+            <div class="final-icon" style="background:linear-gradient(135deg,#64748b,#94a3b8);box-shadow:none">i</div>
+            <h2 id="encTitulo">Formulário encerrado</h2>
+            <p id="encMensagem"></p>
+            <div class="acoes">
+                <button type="button" class="btn primary" id="btnReiniciarEnc">Responder novamente</button>
+            </div>
+        </div>
+
+        <div class="card final" id="telaFinal" hidden>
+            <div class="final-icon">✓</div>
+            <h2>Respostas registradas com sucesso!</h2>
+            <p>
+                Agradecemos sua participação e contribuição para esta pesquisa acadêmica. Suas respostas contribuirão para a compreensão das relações de liderança no ambiente de trabalho a partir da perspectiva da Psicologia Organizacional e do Trabalho e da Abordagem
+                Humanística.
+            </p>
+            <div class="acoes">
+                <button type="button" class="btn primary" id="btnBaixar">⬇ Baixar respostas (JSON)</button>
+                <button type="button" class="btn ghost" id="btnCopiar">⧉ Copiar respostas</button>
+                <button type="button" class="btn ghost" id="btnNova">Responder novamente</button>
+            </div>
+            <p class="footer-hint" style="margin-top:20px">Muito obrigado(a) pela participação!</p>
+        </div>
+    </main>
+
+    <nav class="footer-nav" id="footerNav">
+        <div class="inner">
+            <button type="button" class="btn ghost" id="btnVoltar">← Voltar</button>
+            <span class="footer-hint" id="footerHint"></span>
+            <button type="button" class="btn primary" id="btnAvancar">Continuar →</button>
+        </div>
+    </nav>
+
+    <script>
+        /* ============================================================
+                                   1. DADOS DAS QUESTÕES
+                                   ============================================================ */
+        const ESCALA = [{
+            v: 1,
+            t: 'Discordo totalmente'
+        }, {
+            v: 2,
+            t: 'Discordo parcialmente'
+        }, {
+            v: 3,
+            t: 'Nem concordo nem discordo'
+        }, {
+            v: 4,
+            t: 'Concordo parcialmente'
+        }, {
+            v: 5,
+            t: 'Concordo totalmente'
+        }];
+
+        const PERCEPCAO = [{
+            id: 'p1',
+            n: '1',
+            titulo: 'Participação nas decisões',
+            texto: 'Meu líder permite que os integrantes da equipe participem das decisões que afetam suas atividades.'
+        }, {
+            id: 'p2',
+            n: '2',
+            titulo: 'Centralização das decisões',
+            texto: 'As principais decisões são concentradas no líder, cabendo à equipe principalmente cumprir suas determinações.'
+        }, {
+            id: 'p3',
+            n: '3',
+            titulo: 'Autonomia',
+            texto: 'Meu líder proporciona liberdade para que eu realize minhas atividades, confiando na minha capacidade de tomar decisões dentro das minhas responsabilidades.'
+        }, {
+            id: 'p4',
+            n: '4',
+            titulo: 'Comunicação e escuta',
+            texto: 'Minhas opiniões e sugestões são ouvidas e consideradas pela liderança.'
+        }, {
+            id: 'p5',
+            n: '5',
+            titulo: 'Orientação e acompanhamento',
+            texto: 'Meu líder acompanha a realização das tarefas e estabelece de forma clara o que deve ser feito pela equipe.'
+        }, {
+            id: 'p6',
+            n: '6',
+            titulo: 'Confiança e relacionamento',
+            texto: 'Percebo uma relação de confiança e respeito entre mim, os demais integrantes da equipe e a liderança.'
+        }, {
+            id: 'p7',
+            n: '7',
+            titulo: 'Reconhecimento',
+            texto: 'Quando realizo meu trabalho de maneira satisfatória, percebo que minha dedicação é reconhecida pela liderança.'
+        }, {
+            id: 'p8',
+            n: '8',
+            titulo: 'Adaptação da liderança',
+            texto: 'Meu líder adapta sua forma de orientar, acompanhar ou apoiar a equipe de acordo com a situação e as necessidades do trabalho.'
+        }];
+
+        const MOTIVACAO = [{
+            id: 'm10',
+            n: '10',
+            titulo: 'Motivação',
+            texto: 'A forma como sou liderado(a) contribui para minha motivação e disposição para realizar minhas atividades no trabalho.'
+        }, {
+            id: 'm11',
+            n: '11',
+            titulo: 'Satisfação',
+            texto: 'A forma como sou tratado(a) pela liderança contribui para minha satisfação com o trabalho.'
+        }, {
+            id: 'm12',
+            n: '12',
+            titulo: 'Participação e pertencimento',
+            texto: 'A forma de liderança existente no meu trabalho contribui para que eu me sinta parte da equipe e tenha vontade de participar das atividades coletivas.'
+        }, {
+            id: 'm13',
+            n: '13',
+            titulo: 'Autonomia',
+            texto: 'A forma de liderança existente no meu trabalho contribui para que eu tenha autonomia para realizar minhas atividades.'
+        }, {
+            id: 'm14',
+            n: '14',
+            titulo: 'Comportamento e envolvimento',
+            texto: 'O estilo de liderança vivenciado no meu trabalho influencia a maneira como me comporto, participo e me envolvo nas atividades profissionais.'
+        }];
+
+        const RESUMO = [{
+            titulo: 'Consentimento',
+            itens: [{
+                n: 'consentimento',
+                l: 'Concordância em participar'
+            }]
+        }, {
+            titulo: 'Caracterização dos participantes',
+            itens: [{
+                n: 'idade',
+                l: '1. Idade'
+            }, {
+                n: 'curso',
+                l: '2. Curso'
+            }, {
+                n: 'semestre',
+                l: '3. Semestre/Período',
+                outro: 'semestre_outro'
+            }, {
+                n: 'turnoEstudo',
+                l: '4. Turno de estudo',
+                outro: 'turnoEstudo_outro'
+            }, {
+                n: 'trabalha',
+                l: '5. Trabalha atualmente'
+            }, {
+                n: 'turnoTrabalho',
+                l: '6. Turno de trabalho',
+                outro: 'turnoTrabalho_outro'
+            }, {
+                n: 'tempoEmpresa',
+                l: '7. Tempo na ocupação/empresa'
+            }, {
+                n: 'relacaoTrabalho',
+                l: '8. Relação de trabalho',
+                outro: 'relacaoTrabalho_outro'
+            }]
+        }, {
+            titulo: 'Percepção sobre o perfil de liderança',
+            itens: PERCEPCAO.map(q => ({
+                n: q.id,
+                l: `${q.n}. ${q.titulo}`,
+                likert: true
+            }))
+        }, {
+            titulo: 'Identificação do perfil predominante',
+            itens: [{
+                n: 'perfil',
+                l: '9. Perfil predominante'
+            }]
+        }, {
+            titulo: 'Motivação, satisfação e participação',
+            itens: MOTIVACAO.map(q => ({
+                n: q.id,
+                l: `${q.n}. ${q.titulo}`,
+                likert: true
+            }))
+        }, {
+            titulo: 'Fatores de motivação',
+            itens: [{
+                n: 'fatores',
+                l: '15. Fatores que mais contribuem para a motivação',
+                outro: 'fatores_outro'
+            }]
+        }];
+
+        /* ============================================================
+           2. ESTADO E REFERÊNCIAS
+           ============================================================ */
+        const TOTAL = 8;
+        const ROTULOS_ETAPAS = ['Apresentação', 'Consentimento', 'Caracterização', 'Liderança', 'Perfil', 'Motivação', 'Fatores', 'Revisão'];
+        const STORAGE_KEY = 'pesquisa_lideranca_rascunho';
+        const STORAGE_ENVIO = 'pesquisa_lideranca_resposta_final';
+
+        let atual = 0;
+        const visitados = new Set([0]);
+
+        const form = document.getElementById('pesquisa');
+        const steps = [...document.querySelectorAll('.step')];
+        const progressFill = document.getElementById('progressFill');
+        const progressBar = document.getElementById('progressBar');
+        const stepCount = document.getElementById('stepCount');
+        const stepsNav = document.getElementById('stepsNav');
+        const erroBanner = document.getElementById('erroBanner');
+        const btnVoltar = document.getElementById('btnVoltar');
+        const btnAvancar = document.getElementById('btnAvancar');
+        const footerNav = document.getElementById('footerNav');
+        const footerHint = document.getElementById('footerHint');
+
+        /* ============================================================
+           3. RENDERIZAÇÃO DAS QUESTÕES LIKERT
+           ============================================================ */
+        function blocoLikert(q) {
+            return `
+                <div class="questao" data-q="${q.id}">
+                    <p class="q-titulo"><span class="q-num">${q.n}</span>${q.titulo}</p>
+                    <p class="q-texto">${q.texto}</p>
+                    <div class="likert" role="radiogroup" aria-label="${q.n}. ${q.titulo}">
+                        ${ESCALA.map(o => `
+                            <label class="likert-opt" title="${o.t}">
+                                <input type="radio" name="${q.id}" value="${o.v}" aria-label="${o.v} – ${o.t}">
+                                <span class="num">${o.v}</span>
+                                <span class="lbl">${o.t}</span>
+                            </label>`).join('')}
+                    </div>
+                </div>`;
+        }
+
+        document.getElementById('listaPercepcao').innerHTML = PERCEPCAO.map(blocoLikert).join('');
+        document.getElementById('listaMotivacao').innerHTML = MOTIVACAO.map(blocoLikert).join('');
+
+        /* ============================================================
+           4. NAVEGAÇÃO / PROGRESSO
+           ============================================================ */
+        function renderNav() {
+            stepsNav.innerHTML = steps.map((s, i) => `
+                <button type="button" class="step-dot ${i === atual ? 'active' : ''} ${i < atual ? 'done' : ''}"
+                        data-i="${i}" ${visitados.has(i) ? '' : 'disabled style="opacity:.55;cursor:default"'}>
+                    <span>${i + 1}</span><em>${ROTULOS_ETAPAS[i]}</em>
+                </button>`).join('');
+        }
+
+        function atualizarProgresso() {
+            const pct = Math.round(((atual + 1) / TOTAL) * 100);
+            progressFill.style.width = pct + '%';
+            progressBar.setAttribute('aria-valuenow', pct);
+            stepCount.textContent = `Etapa ${atual + 1} de ${TOTAL}`;
+        }
+
+        function atualizarBotoes() {
+            btnVoltar.disabled = (atual === 0);
+            btnAvancar.textContent = (atual === TOTAL - 1) ? 'Enviar respostas ✓' : 'Continuar →';
+            const dicas = [
+                'Leia com atenção antes de prosseguir.',
+                'Participação voluntária e anônima.',
+                'Nenhum dado identifica você ou sua empresa.',
+                'Pense no líder com quem você tem mais contato.',
+                'Escolha apenas uma alternativa.',
+                'Responda com sinceridade.',
+                'Selecione no máximo 3 fatores.',
+                'Revise e envie suas respostas.'
+            ];
+            footerHint.textContent = dicas[atual] || '';
+        }
+
+        function irPara(i) {
+            atual = Math.max(0, Math.min(TOTAL - 1, i));
+            visitados.add(atual);
+            steps.forEach((s, idx) => s.classList.toggle('active', idx === atual));
+            limparErros();
+            renderNav();
+            atualizarProgresso();
+            atualizarBotoes();
+            if (atual === TOTAL - 1) gerarResumo();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ============================================================
+           5. ERROS E VALIDAÇÃO
+           ============================================================ */
+        function mostrarErro(msg) {
+            erroBanner.textContent = '⚠ ' + msg;
+            erroBanner.hidden = false;
+            erroBanner.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+
+        function limparErros() {
+            erroBanner.hidden = true;
+            document.querySelectorAll('.invalido').forEach(el => el.classList.remove('invalido'));
+        }
+
+        function marcarInvalido(name) {
+            const el = document.querySelector(`[name="${name}"]`);
+            if (!el) return;
+            const bloco = el.closest('.questao, .campo');
+            if (bloco) bloco.classList.add('invalido');
+        }
+
+        function checked(name) {
+            return document.querySelector(`input[name="${name}"]:checked`);
+        }
+
+        function validarEtapa(i) {
+            limparErros();
+            const faltando = [];
+
+            if (i === 1) {
+                const c = checked('consentimento');
+                if (!c) {
+                    marcarInvalido('consentimento');
+                    mostrarErro('É necessário indicar se você concorda em participar da pesquisa.');
+                    return false;
+                }
+                if (c.value === 'nao') {
+                    encerrar(
+                        'Participação não autorizada',
+                        'Você optou por não participar desta pesquisa. Agradecemos o seu tempo e reforçamos que nenhuma informação foi registrada. Você pode fechar esta página com segurança.'
+                    );
+                    return false;
+                }
+                return true;
+            }
+
+            if (i === 2) {
+                if (!checked('idade')) { faltando.push('idade'); marcarInvalido('idade'); }
+                const curso = document.querySelector('input[name="curso"]');
+                if (!curso.value.trim()) { faltando.push('curso'); marcarInvalido('curso'); }
+                if (!checked('semestre')) { faltando.push('semestre'); marcarInvalido('semestre'); }
+                if (!checked('turnoEstudo')) { faltando.push('turnoEstudo'); marcarInvalido('turnoEstudo'); }
+                if (!checked('trabalha')) { faltando.push('trabalha'); marcarInvalido('trabalha'); }
+
+                const outros = ['semestre', 'turnoEstudo', 'turnoTrabalho', 'relacaoTrabalho'];
+                outros.forEach(nome => {
+                    const sel = checked(nome);
+                    if (sel && sel.value === 'outro') {
+                        const txt = document.querySelector(`input[name="${nome}_outro"]`);
+                        if (txt && !txt.value.trim()) {
+                            faltando.push(nome);
+                            marcarInvalido(nome);
+                            txt.style.borderColor = '#fca5a5';
+                        }
+                    }
+                });
+
+                const trabalha = checked('trabalha');
+                if (trabalha && trabalha.value === 'nao' && faltando.length === 0) {
+                    encerrar(
+                        'Formulário encerrado',
+                        'Esta pesquisa é direcionada a estudantes universitários que estão trabalhando atualmente. Como você indicou não estar trabalhando no momento, sua participação se encerra aqui. Agradecemos muito pelo seu interesse!'
+                    );
+                    return false;
+                }
+
+                if (trabalha && trabalha.value === 'sim') {
+                    if (!checked('turnoTrabalho')) { faltando.push('turnoTrabalho'); marcarInvalido('turnoTrabalho'); }
+                    if (!checked('tempoEmpresa')) { faltando.push('tempoEmpresa'); marcarInvalido('tempoEmpresa'); }
+                    if (!checked('relacaoTrabalho')) { faltando.push('relacaoTrabalho'); marcarInvalido('relacaoTrabalho'); }
+                }
+
+                if (faltando.length) {
+                    mostrarErro('Por favor, responda todas as questões obrigatórias destacadas antes de continuar.');
+                    return false;
+                }
+                return true;
+            }
+
+            if (i === 3) {
+                const semResposta = PERCEPCAO.filter(q => !checked(q.id));
+                semResposta.forEach(q => marcarInvalido(q.id));
+                if (semResposta.length) {
+                    mostrarErro(`Faltam ${semResposta.length} questão(ões) desta seção. Responda todas as afirmações para continuar.`);
+                    return false;
+                }
+                return true;
+            }
+
+            if (i === 4) {
+                if (!checked('perfil')) {
+                    marcarInvalido('perfil');
+                    mostrarErro('Selecione uma alternativa para o perfil predominante do seu líder.');
+                    return false;
+                }
+                return true;
+            }
+
+            if (i === 5) {
+                const semResposta = MOTIVACAO.filter(q => !checked(q.id));
+                semResposta.forEach(q => marcarInvalido(q.id));
+                if (semResposta.length) {
+                    mostrarErro(`Faltam ${semResposta.length} questão(ões) desta seção. Responda todas as afirmações para continuar.`);
+                    return false;
+                }
+                return true;
+            }
+
+            if (i === 6) {
+                const marcados = [...document.querySelectorAll('input[name="fatores"]:checked')];
+                if (marcados.length === 0) {
+                    marcarInvalido('fatores');
+                    mostrarErro('Selecione pelo menos 1 fator de motivação.');
+                    return false;
+                }
+                if (marcados.length > 3) {
+                    marcarInvalido('fatores');
+                    mostrarErro(`Você selecionou ${marcados.length} fatores. O limite é de 3 alternativas.`);
+                    return false;
+                }
+                if (marcados.some(m => m.value === 'outro')) {
+                    const txt = document.querySelector('input[name="fatores_outro"]');
+                    if (!txt.value.trim()) {
+                        marcarInvalido('fatores');
+                        mostrarErro('Você marcou "Outro". Especifique qual fator no campo indicado.');
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            return true;
+        }
+
+        /* ============================================================
+           6. COLETA DE DADOS
+           ============================================================ */
+        function coletarDados() {
+            const fd = new FormData(form);
+            const obj = {};
+            for (const [k, v] of fd.entries()) {
+                if (obj[k] !== undefined) {
+                    obj[k] = [].concat(obj[k], v);
+                } else {
+                    obj[k] = v;
+                }
+            }
+            return obj;
+        }
+
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, c => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[c]));
+        }
+
+        function rotulo(name, value, likert) {
+            if (likert) {
+                const o = ESCALA.find(e => String(e.v) === String(value));
+                return o ? `${o.v} – ${o.t}` : String(value);
+            }
+            const inp = document.querySelector(`input[name="${name}"][value="${CSS.escape(String(value))}"]`);
+            if (inp) {
+                const span = inp.parentElement.querySelector('span:not(.num)');
+                if (span) return span.textContent.trim();
+            }
+            return String(value);
+        }
+
+        /* ============================================================
+           7. RESUMO DA REVISÃO
+           ============================================================ */
+        function fmtItem(it, data) {
+            const v = data[it.n];
+            let out;
+
+            if (v === undefined || v === '' || (Array.isArray(v) && v.length === 0)) {
+                out = '<span class="vazio">Não respondido</span>';
+            } else if (Array.isArray(v)) {
+                out = v.map(x => escapeHtml(rotulo(it.n, x, it.likert))).join('; ');
+            } else {
+                out = escapeHtml(rotulo(it.n, v, it.likert));
+            }
+
+            if (it.outro && data[it.outro] && String(data[it.outro]).trim()) {
+                out += ` <span class="outro-val">— ${escapeHtml(data[it.outro])}</span>`;
+            }
+            return out;
+        }
+
+        function gerarResumo() {
+            const data = coletarDados();
+            document.getElementById('resumo').innerHTML = RESUMO.map(sec => `
+                <div class="resumo-secao">
+                    <h3>${sec.titulo}</h3>
+                    <dl>
+                        ${sec.itens.map(it => `
+                            <div class="resumo-item">
+                                <dt>${escapeHtml(it.l)}</dt>
+                                <dd>${fmtItem(it, data)}</dd>
+                            </div>`).join('')}
+                    </dl>
+                </div>`).join('');
+        }
+
+        /* ============================================================
+           8. CONDICIONAIS
+           ============================================================ */
+        function atualizarCondicionais() {
+            document.querySelectorAll('input[value="outro"]').forEach(inp => {
+                const wrap = document.getElementById('outro-' + inp.name);
+                if (wrap) wrap.hidden = !inp.checked;
+            });
+
+            const trabalha = checked('trabalha');
+            const bloco = document.getElementById('blocoTrabalho');
+            if (trabalha && trabalha.value === 'sim') {
+                bloco.hidden = false;
+            } else {
+                bloco.hidden = true;
+            }
+        }
+
+        /* ============================================================
+           9. CONTADOR DE FATORES
+           ============================================================ */
+        function atualizarContador() {
+            const marcados = document.querySelectorAll('input[name="fatores"]:checked').length;
+            const el = document.getElementById('contadorFatores');
+            el.textContent = `${marcados}/3`;
+            el.classList.toggle('limite', marcados === 3);
+            el.classList.toggle('excedido', marcados > 3);
+        }
+
+        /* ============================================================
+           10. RASCUNHO (localStorage)
+           ============================================================ */
+        let timerRascunho = null;
+
+        function salvarRascunho() {
+            clearTimeout(timerRascunho);
+            timerRascunho = setTimeout(() => {
+                try { localStorage.setItem(STORAGE_KEY, JSON.stringify(coletarDados())); } catch (e) {}
+            }, 400);
+        }
+
+        function restaurarRascunho() {
+            let raw;
+            try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) { return; }
+            if (!raw) return;
+
+            let data;
+            try { data = JSON.parse(raw); } catch (e) { return; }
+
+            Object.entries(data).forEach(([k, v]) => {
+                const valores = Array.isArray(v) ? v : [v];
+
+                valores.forEach(val => {
+                    const el = document.querySelector(`input[name="${k}"][value="${CSS.escape(String(val))}"]`);
+                    if (el && (el.type === 'radio' || el.type === 'checkbox')) el.checked = true;
+                });
+
+                const txt = document.querySelector(`input[type="text"][name="${k}"]`);
+                if (txt && typeof v === 'string') txt.value = v;
+            });
+
+            atualizarCondicionais();
+            atualizarContador();
+        }
+
+        function limparRascunho() {
+            try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+        }
+
+        /* ============================================================
+           11. ENCERRAMENTO E ENVIO
+           ============================================================ */
+        function encerrar(titulo, mensagem) {
+            form.hidden = true;
+            footerNav.hidden = true;
+            document.getElementById('telaEncerramento').hidden = false;
+            document.getElementById('encTitulo').textContent = titulo;
+            document.getElementById('encMensagem').textContent = mensagem;
+            progressFill.style.width = '100%';
+            progressBar.setAttribute('aria-valuenow', 100);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function enviar() {
+            const data = coletarDados();
+            data._meta = {
+                pesquisa: 'Perfil de Liderança no Trabalho: Percepção dos Estudantes Universitários',
+                disciplina: 'Psicologia Organizacional e do Trabalho – Abordagem Humanística',
+                grupo: 'Grupo 1',
+                dataEnvio: new Date().toISOString()
+            };
+
+            const btn = document.getElementById('btnAvancar');
+            btn.disabled = true;
+            btn.textContent = 'Enviando…';
+
+            try {
+                const resposta = await fetch('https://script.google.com/macros/s/AKfycbxsX8S2uCMwF0n8enEsOAwYsPfARNmUX2OOtSPTqZtHdlAMLQPpOFMG9_toun3SsEh7/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify(data),
+                    redirect: 'follow'
+                });
+
+                if (!resposta.ok) {
+                    throw new Error('Servidor respondeu ' + resposta.status);
+                }
+
+                try {
+                    localStorage.setItem(STORAGE_ENVIO, JSON.stringify(data));
+                    localStorage.removeItem(STORAGE_KEY);
+                } catch (e) {}
+
+                form.hidden = true;
+                footerNav.hidden = true;
+                document.getElementById('telaFinal').hidden = false;
+                progressFill.style.width = '100%';
+                progressBar.setAttribute('aria-valuenow', 100);
+                stepCount.textContent = 'Concluído';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (err) {
+                console.error('Falha no envio:', err);
+                btn.disabled = false;
+                btn.textContent = 'Tentar enviar novamente ✓';
+                mostrarErro('Não foi possível enviar suas respostas. Verifique sua conexão e tente novamente.');
+            }
+        }
+
+        /* ============================================================
+           12. DOWNLOAD / CÓPIA
+           ============================================================ */
+        function obterRespostas() {
+            let raw = null;
+            try { raw = localStorage.getItem(STORAGE_ENVIO); } catch (e) {}
+            if (raw) {
+                try { return JSON.parse(raw); } catch (e) {}
+            }
+            return coletarDados();
+        }
+
+        function baixarJSON() {
+            const data = obterRespostas();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'respostas-pesquisa-lideranca.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 1500);
+        }
+
+        async function copiarJSON(botao) {
+            const texto = JSON.stringify(obterRespostas(), null, 2);
+            const original = botao.textContent;
+            try {
+                await navigator.clipboard.writeText(texto);
+                botao.textContent = '✓ Copiado!';
+            } catch (e) {
+                const ta = document.createElement('textarea');
+                ta.value = texto;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); botao.textContent = '✓ Copiado!'; }
+                catch (err) { botao.textContent = '✗ Falhou'; }
+                document.body.removeChild(ta);
+            }
+            setTimeout(() => { botao.textContent = original; }, 1800);
+        }
+
+        /* ============================================================
+           13. EVENTOS
+           ============================================================ */
+        btnAvancar.addEventListener('click', () => {
+            if (!validarEtapa(atual)) return;
+            if (atual < TOTAL - 1) irPara(atual + 1);
+            else enviar();
+        });
+
+        btnVoltar.addEventListener('click', () => {
+            if (atual > 0) irPara(atual - 1);
+        });
+
+        stepsNav.addEventListener('click', e => {
+            const btn = e.target.closest('.step-dot');
+            if (!btn) return;
+            const i = Number(btn.dataset.i);
+            if (!visitados.has(i)) return;
+            if (i === atual) return;
+            if (i > atual && !validarEtapa(atual)) return;
+            irPara(i);
+        });
+
+        form.addEventListener('change', e => {
+            atualizarCondicionais();
+            atualizarContador();
+            salvarRascunho();
+            const bloco = e.target.closest('.questao, .campo');
+            if (bloco) bloco.classList.remove('invalido');
+            if (e.target.type === 'text') e.target.style.borderColor = '';
+        });
+
+        form.addEventListener('input', e => {
+            if (e.target.type === 'text') {
+                salvarRascunho();
+                const bloco = e.target.closest('.campo');
+                if (bloco) bloco.classList.remove('invalido');
+                e.target.style.borderColor = '';
+            }
+        });
+
+        document.getElementById('btnLimparRascunho').addEventListener('click', () => {
+            if (confirm('Deseja apagar o rascunho salvo neste navegador? Esta ação não pode ser desfeita.')) {
+                limparRascunho();
+                location.reload();
+            }
+        });
+
+        document.getElementById('btnBaixarRascunho').addEventListener('click', baixarJSON);
+        document.getElementById('btnCopiarRascunho').addEventListener('click', function () { copiarJSON(this); });
+        document.getElementById('btnBaixar').addEventListener('click', baixarJSON);
+        document.getElementById('btnCopiar').addEventListener('click', function () { copiarJSON(this); });
+        document.getElementById('btnNova').addEventListener('click', () => location.reload());
+        document.getElementById('btnReiniciarEnc').addEventListener('click', () => location.reload());
+
+        document.addEventListener('keydown', e => {
+            if (!e.altKey) return;
+            if (e.key === 'ArrowRight' && !btnAvancar.disabled) btnAvancar.click();
+            if (e.key === 'ArrowLeft' && !btnVoltar.disabled) btnVoltar.click();
+        });
+
+        /* ============================================================
+           14. INICIALIZAÇÃO
+           ============================================================ */
+        restaurarRascunho();
+        atualizarCondicionais();
+        atualizarContador();
+        renderNav();
+        atualizarProgresso();
+        atualizarBotoes();
+    </script>
+</body>
+
+</html>
