@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pesquisa — Perfil de Liderança no Trabalho</title>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pesquisa — Perfil de Liderança no Trabalho</title>
+        <style>
          :root {
             --bg: #f4f6fb;
             --card: #ffffff;
@@ -183,6 +183,21 @@
         .step-dot em {
             font-style: normal
         }
+
+        /* Estilo base da badge de número */
+        .likert-opt .num {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Gradação por valor de input */
+        .likert-opt input[value="1"] ~ .num { background-color: #ea9999; color: #7f1d1d; }
+        .likert-opt input[value="2"] ~ .num { background-color: #fce5cd; color: #7c2d12; }
+        .likert-opt input[value="3"] ~ .num { background-color: #e2e8f0; color: #334155; }
+        .likert-opt input[value="4"] ~ .num { background-color: #d9ead3; color: #14532d; }
+        .likert-opt input[value="5"] ~ .num { background-color: #b6d7a8; color: #064e3b; }
         
         main {
             max-width: 900px;
@@ -965,373 +980,564 @@
             }
         }
     </style>
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <header class="topbar">
-        <div class="topbar-inner">
-            <div class="brand">
-                <div class="brand-dot"></div>
-                <div>
-                    <strong>Perfil de Liderança no Trabalho</strong>
-                    <small>Psicologia Organizacional e do Trabalho — Abordagem Humanística</small>
-                </div>
-            </div>
-            <div class="step-count" id="stepCount">Etapa 1 de 8</div>
-        </div>
-        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="12" id="progressBar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <nav class="steps-nav" id="stepsNav" aria-label="Etapas do formulário"></nav>
-    </header>
-
-    <main>
-        <div class="erro-banner" id="erroBanner" role="alert" aria-live="assertive" hidden></div>
-
-        <form id="pesquisa" novalidate>
-
-            <!-- ETAPA 0 — APRESENTAÇÃO -->
-            <section class="step active" id="step-0" data-title="Apresentação">
-                <div class="card">
-                    <span class="eyebrow">Etapa 1 · Apresentação</span>
-                    <h2>Perfil de liderança no trabalho: percepção dos estudantes universitários</h2>
-                    <p class="lead">Psicologia Organizacional e do Trabalho — Abordagem Humanística</p>
-
-                    <div class="texto-bloco">
-                        <p>Prezado(a) participante,</p>
-                        <p>
-                            Somos estudantes da disciplina de <strong>Psicologia Organizacional e do Trabalho</strong> e estamos realizando uma atividade acadêmica sobre <strong>Liderança no Trabalho</strong>, a partir da perspectiva da <strong>Abordagem Humanística</strong>.
-                        </p>
-                        <p>
-                            A pesquisa busca compreender como os estudantes universitários que trabalham percebem e vivenciam o perfil de liderança existente em seu ambiente profissional, considerando aspectos relacionados à participação, autonomia, comunicação, confiança, reconhecimento,
-                            motivação e satisfação no trabalho.
-                        </p>
+        <header class="topbar">
+            <div class="topbar-inner">
+                <div class="brand">
+                    <div class="brand-dot"></div>
+                    <div>
+                        <strong>Perfil de Liderança no Trabalho</strong>
+                        <small>Psicologia do Trabalho</small>
                     </div>
+                </div>
+                <div class="step-count" id="stepCount">Etapa 1 de 8</div>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0"
+                aria-valuemax="100" aria-valuenow="12" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <nav class="steps-nav" id="stepsNav"
+                aria-label="Etapas do formulário"></nav>
+        </header>
 
-                    <h3>Objetivo da pesquisa</h3>
-                    <p class="texto-bloco">
-                        Analisar, sob a ótica da Abordagem Humanística da Psicologia Organizacional e do Trabalho, o perfil de liderança vivenciado e percebido pelos estudantes universitários em seu ambiente profissional, buscando compreender sua relação com a motivação, satisfação,
-                        participação, autonomia e comportamento no trabalho.
-                    </p>
+        <main>
+            <div class="erro-banner" id="erroBanner" role="alert"
+                aria-live="assertive" hidden></div>
 
-                    <h3>Quem somos</h3>
-                    <div class="info-box">
-                        <strong>Esta pesquisa está sendo realizada por estudantes da disciplina de Psicologia Organizacional e do Trabalho, sob orientação do(a) professor(a):</strong>
-                        <ul>
-                            <li><strong>Professor(a):</strong> DRA. ROSSANE CARDOSO CARVALHO</li>
-                            <li><strong>Curso:</strong> ENGENHARIA DE PRODUÇÃO BACHARELADO</li>
-                            <li><strong>Instituição:</strong> UNIVERSIDADE ESTADUAL DO MARANHÃO</li>
+            <form id="pesquisa" novalidate>
+
+                <!-- ETAPA 0 — APRESENTAÇÃO -->
+                <section class="step active" id="step-0"
+                    data-title="Apresentação">
+                    <div class="card">
+                        <span class="eyebrow">Etapa 1 · Apresentação</span>
+                        <h2>Perfil de liderança no trabalho: percepção dos estudantes universitários</h2>
+                        <p class="lead">Psicologia Organizacional e do Trabalho — Abordagem Humanística</p>
+
+                        <div class="texto-bloco">
+                            <p>Prezado(a) participante,</p>
+                            <p>
+                                Somos estudantes da disciplina de
+                                <strong>Psicologia do Trabalho</strong> e estamos realizando uma atividade acadêmica sobre <strong>Liderança no Trabalho</strong>, a partir da perspectiva da <strong>Abordagem Humanística</strong>.
+                            </p>
+                        </div>
+
+                        <h3>Objetivo da pesquisa</h3>
+                        <p class="texto-bloco">Analisar, sob a ótica da Abordagem Humanística da Psicologia do Trabalho, o perfil de liderança vivenciado e percebido pelos estudantes universitários em seu ambiente profissional, buscando compreender sua relação com a motivação, satisfação, participação, autonomia e comportamento no trabalho.</p>
+
+                        <h3>Quem somos</h3>
+                        <div class="info-box">
+                            <strong>Esta pesquisa está sendo realizada por estudantes da disciplina de Psicologia do Trabalho, sob orientação do(a) professor(a):</strong>
+                            <ul>
+                                <li><strong>Professor(a):</strong> DRA. ROSSANE CARDOSO CARVALHO</li>
+                                <li><strong>Curso:</strong> ENGENHARIA DE PRODUÇÃO BACHARELADO</li>
+                                <li><strong>Instituição:</strong> UNIVERSIDADE ESTADUAL DO MARANHÃO</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>Pesquisadores(as) — Grupo 1</strong>
+                            <div class="pesquisadores">
+                                Andrey Lopes Reis · Breno Murilo Amorim Santos · Diego Bezerra Reinaldo · Emilly Karoline Ramos Araújo · Marília Evelyn Fernandes Ferreira · Paulo Sérgio Lisboa · Ruan Kheven Sardinha Marques
+                            </div>
+                        </div>
+
+                        <h3>Forma de coleta</h3>
+                        <p class="texto-bloco">
+                            A coleta será realizada por meio de questionário eletrônico, composto por perguntas de caracterização dos participantes e questões objetivas sobre a percepção da liderança no ambiente de trabalho.
+                        </p>
+                        <ul class="texto-bloco">
+                            <li>O preenchimento levará aproximadamente <strong>5 a 10 minutos</strong>.</li>
+                            <li>Não será necessário informar nome, CPF, matrícula, nome da empresa ou outras informações que permitam a identificação individual do participante ou de seu empregador.</li>
+                            <li>Suas respostas ficam salvas automaticamente neste navegador enquanto você preenche.</li>
                         </ul>
                     </div>
+                </section>
 
-                    <div class="info-box">
-                        <strong>Pesquisadores(as) — Grupo 1</strong>
-                        <div class="pesquisadores">
-                            Andrey Lopes Reis · Breno Murilo Amorim Santos · Diego Bezerra Reinaldo · Emilly Karoline Ramos Araújo · Marília Evelyn Fernandes Ferreira · Paulo Sérgio Lisboa · Ruan Kheven Sardinha Marques
+                <!-- ETAPA 1 — TCLE -->
+                <section class="step" id="step-1" data-title="Consentimento">
+                    <div class="card">
+                        <span class="eyebrow">Etapa 2 · Consentimento</span>
+                        <h2>Termo de Consentimento Livre e Esclarecido — TCLE</h2>
+
+                        <div class="texto-bloco">
+                            <p>Você está sendo convidado(a) a participar <strong>voluntariamente</strong> desta atividade acadêmica sobre <strong>Perfil de Liderança no Trabalho</strong>.</p>
+                            <p>Sua participação consiste em responder a este questionário, fornecendo informações sobre sua experiência como estudante e trabalhador e sobre a forma como percebe a liderança existente em seu ambiente profissional.</p>
+                            <p>Sua participação é voluntária. Você poderá deixar de responder ao questionário ou interromper sua participação a qualquer momento, sem qualquer prejuízo.</p>
+                            <p>As informações serão utilizadas para <strong>fins acadêmicos e didáticos</strong>, especialmente para análise e discussão dos resultados na disciplina de Psicologia do Trabalho.</p>
+                            <p>Não serão solicitados nome, CPF, matrícula, nome da empresa ou outras informações destinadas a identificar individualmente o participante.</p>
                         </div>
-                    </div>
 
-                    <h3>Forma de coleta</h3>
-                    <p class="texto-bloco">
-                        A coleta será realizada por meio de questionário eletrônico, composto por perguntas de caracterização dos participantes e questões objetivas sobre a percepção da liderança no ambiente de trabalho.
-                    </p>
-                    <ul class="texto-bloco">
-                        <li>O preenchimento levará aproximadamente <strong>5 a 10 minutos</strong>.</li>
-                        <li>Não será necessário informar nome, CPF, matrícula, nome da empresa ou outras informações que permitam a identificação individual do participante ou de seu empregador.</li>
-                        <li>Suas respostas ficam salvas automaticamente neste navegador enquanto você preenche.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- ETAPA 1 — TCLE -->
-            <section class="step" id="step-1" data-title="Consentimento">
-                <div class="card">
-                    <span class="eyebrow">Etapa 2 · Consentimento</span>
-                    <h2>Termo de Consentimento Livre e Esclarecido — TCLE</h2>
-
-                    <div class="texto-bloco">
-                        <p>Você está sendo convidado(a) a participar <strong>voluntariamente</strong> desta atividade acadêmica sobre <strong>Perfil de Liderança no Trabalho</strong>.</p>
-                        <p>Sua participação consiste em responder a este questionário, fornecendo informações sobre sua experiência como estudante e trabalhador e sobre a forma como percebe a liderança existente em seu ambiente profissional.</p>
-                        <p>Sua participação é voluntária. Você poderá deixar de responder ao questionário ou interromper sua participação a qualquer momento, sem qualquer prejuízo.</p>
-                        <p>As informações serão utilizadas para <strong>fins acadêmicos e didáticos</strong>, especialmente para análise e discussão dos resultados na disciplina de Psicologia Organizacional e do Trabalho.</p>
-                        <p>Não serão solicitados nome, CPF, matrícula, nome da empresa ou outras informações destinadas a identificar individualmente o participante.</p>
-                    </div>
-
-                    <div class="campo" id="campo-consentimento">
-                        <p class="campo-label">Você concorda em participar desta pesquisa? <span class="req">*</span></p>
-                        <div class="opcoes">
-                            <label class="op">
-                                <input type="radio" name="consentimento" value="sim">
-                                <span>Sim, concordo em participar.</span>
-                            </label>
-                            <label class="op">
-                                <input type="radio" name="consentimento" value="nao">
-                                <span>Não, não desejo participar.</span>
-                            </label>
-                        </div>
-                        <p class="footer-hint" style="margin-top:10px">Se você selecionar "Não", o formulário será encerrado automaticamente.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ETAPA 2 — CARACTERIZAÇÃO -->
-            <section class="step" id="step-2" data-title="Caracterização">
-                <div class="card">
-                    <span class="eyebrow">Etapa 3 · Caracterização</span>
-                    <h2>Caracterização dos participantes</h2>
-                    <p class="lead">Estas informações ajudam a contextualizar as respostas. Nenhum dado permite identificação individual.</p>
-
-                    <div class="campo" id="campo-idade">
-                        <p class="campo-label">1. Qual é a sua idade? <span class="req">*</span></p>
-                        <div class="opcoes">
-                            <label class="op"><input type="radio" name="idade" value="Até 18 anos"><span>Até 18 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="19 a 24 anos"><span>19 a 24 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="25 a 29 anos"><span>25 a 29 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="30 a 39 anos"><span>30 a 39 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="40 a 49 anos"><span>40 a 49 anos</span></label>
-                            <label class="op"><input type="radio" name="idade" value="50 anos ou mais"><span>50 anos ou mais</span></label>
-                        </div>
-                    </div>
-
-                    <div class="campo" id="campo-curso">
-                        <p class="campo-label">2. Qual é o seu curso? <span class="req">*</span></p>
-                        <div class="search-select" id="curso-search-select" data-placeholder="Digite para buscar seu curso...">
-                            <input type="text" class="search-select-input" placeholder="Digite para buscar seu curso..." autocomplete="off" readonly>
-                            <input type="hidden" name="curso" value="">
-                            <div class="search-select-dropdown" hidden>
-                                <input type="text" class="search-select-search" placeholder="Buscar curso..." autocomplete="off">
-                                <ul class="search-select-list" role="listbox"></ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="campo" id="campo-semestre">
-                        <p class="campo-label">3. Em qual semestre/período do curso você está? <span class="req">*</span></p>
-                        <div class="opcoes">
-                            <label class="op"><input type="radio" name="semestre" value="1º ao 2º semestre"><span>1º ao 2º semestre</span></label>
-                            <label class="op"><input type="radio" name="semestre" value="3º ao 4º semestre"><span>3º ao 4º semestre</span></label>
-                            <label class="op"><input type="radio" name="semestre" value="5º ao 6º semestre"><span>5º ao 6º semestre</span></label>
-                            <label class="op"><input type="radio" name="semestre" value="7º ao 8º semestre"><span>7º ao 8º semestre</span></label>
-                            <label class="op"><input type="radio" name="semestre" value="9º semestre ou superior"><span>9º semestre ou superior</span></label>
-                        </div>
-                    </div>
-
-                    <div class="campo" id="campo-turnoEstudo">
-                        <p class="campo-label">4. Qual é o turno em que você estuda? <span class="req">*</span></p>
-                        <div class="opcoes">
-                            <label class="op"><input type="radio" name="turnoEstudo" value="Matutino"><span>Matutino</span></label>
-                            <label class="op"><input type="radio" name="turnoEstudo" value="Vespertino"><span>Vespertino</span></label>
-                            <label class="op"><input type="radio" name="turnoEstudo" value="Noturno"><span>Noturno</span></label>
-                            <label class="op"><input type="radio" name="turnoEstudo" value="Integral"><span>Integral</span></label>
-                        </div>
-                    </div>
-
-                    <div class="campo" id="campo-trabalha">
-                        <p class="campo-label">5. Você trabalha atualmente? <span class="req">*</span></p>
-                        <div class="opcoes">
-                            <label class="op"><input type="radio" name="trabalha" value="Sim"><span>Sim</span></label>
-                            <label class="op"><input type="radio" name="trabalha" value="Não"><span>Não</span></label>
-                        </div>
-                        <p class="footer-hint" style="margin-top:10px">Se você selecionar "Não", o formulário será encerrado automaticamente.</p>
-                    </div>
-
-                    <div id="blocoTrabalho" hidden>
-
-                        <div class="campo" id="campo-turnoTrabalho">
-                            <p class="campo-label">6. Qual é o seu turno de trabalho? <span class="req">*</span></p>
+                        <div class="campo" id="campo-consentimento">
+                            <p class="campo-label">Você concorda em participar desta pesquisa? <span class="req">*</span></p>
                             <div class="opcoes">
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="Manhã"><span>Manhã</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="Tarde"><span>Tarde</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="Noite"><span>Noite</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="Integral"><span>Integral</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="Escala/revezamento"><span>Escala/revezamento</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="Horário flexível"><span>Horário flexível</span></label>
-                                <label class="op"><input type="radio" name="turnoTrabalho" value="Outro"><span>Outro</span></label>
+                                <label class="op">
+                                    <input type="radio" name="consentimento"
+                                        value="sim">
+                                    <span>Sim, concordo em participar.</span>
+                                </label>
+                                <label class="op">
+                                    <input type="radio" name="consentimento"
+                                        value="nao">
+                                    <span>Não, não desejo participar.</span>
+                                </label>
                             </div>
-                            <div class="outro-wrap" id="outro-turnoTrabalho" hidden>
-                                <input type="text" name="turnoTrabalho_outro" placeholder="Especifique o turno de trabalho">
-                            </div>
+                            <p class="footer-hint" style="margin-top:10px">Se você selecionar "Não", o formulário será encerrado automaticamente.</p>
                         </div>
+                    </div>
+                </section>
 
-                        <div class="campo" id="campo-tempoEmpresa">
-                            <p class="campo-label">7. Há quanto tempo você trabalha na sua ocupação/empresa atual? <span class="req">*</span></p>
+                <!-- ETAPA 2 — CARACTERIZAÇÃO -->
+                <section class="step" id="step-2" data-title="Caracterização">
+                    <div class="card">
+                        <span class="eyebrow">Etapa 3 · Caracterização</span>
+                        <h2>Caracterização dos participantes</h2>
+                        <p class="lead">Estas informações ajudam a contextualizar as respostas. Nenhum dado permite identificação individual.</p>
+
+                        <div class="campo" id="campo-sexo">
+                            <p class="campo-label">1. Qual é o seu sexo? <span
+                                    class="req">*</span></p>
                             <div class="opcoes">
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="Menos de 6 meses"><span>Menos de 6 meses</span></label>
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="De 6 meses a 1 ano"><span>De 6 meses a 1 ano</span></label>
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="De 1 a 2 anos"><span>De 1 a 2 anos</span></label>
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="De 2 a 5 anos"><span>De 2 a 5 anos</span></label>
-                                <label class="op"><input type="radio" name="tempoEmpresa" value="Mais de 5 anos"><span>Mais de 5 anos</span></label>
+                                <label class="op"><input type="radio"
+                                        name="sexo"
+                                        value="Feminino"><span>Feminino</span></label>
+                                <label class="op"><input type="radio"
+                                        name="sexo"
+                                        value="Masculino"><span>Masculino</span></label>
+                                <label class="op"><input type="radio"
+                                        name="sexo"
+                                        value="Prefiro não responder"><span>Prefiro
+                                        não responder</span></label>
                             </div>
                         </div>
 
-                        <div class="campo" id="campo-relacaoTrabalho">
-                            <p class="campo-label">8. Qual é a sua relação de trabalho atualmente? <span class="req">*</span></p>
+                        <div class="campo" id="campo-idade">
+                            <p class="campo-label">2. Qual é a sua faixa etária?
+                                <span class="req">*</span></p>
                             <div class="opcoes">
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Empregado(a) com carteira assinada"><span>Empregado(a) com carteira assinada</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Estagiário(a)"><span>Estagiário(a)</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Bolsista"><span>Bolsista</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Servidor(a) público(a)"><span>Servidor(a) público(a)</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Trabalhador(a) autônomo(a)"><span>Trabalhador(a) autônomo(a)</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Empresário(a)/empreendedor(a)"><span>Empresário(a)/empreendedor(a)</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Contrato temporário"><span>Contrato temporário</span></label>
-                                <label class="op"><input type="radio" name="relacaoTrabalho" value="Outro"><span>Outro</span></label>
+                                <label class="op"><input type="radio"
+                                        name="idade"
+                                        value="Até 18 anos"><span>Até 18 anos</span></label>
+                                <label class="op"><input type="radio"
+                                        name="idade"
+                                        value="19 a 24 anos"><span>19 a 24 anos</span></label>
+                                <label class="op"><input type="radio"
+                                        name="idade"
+                                        value="25 a 29 anos"><span>25 a 29 anos</span></label>
+                                <label class="op"><input type="radio"
+                                        name="idade"
+                                        value="30 a 39 anos"><span>30 a 39 anos</span></label>
+                                <label class="op"><input type="radio"
+                                        name="idade"
+                                        value="40 a 49 anos"><span>40 a 49 anos</span></label>
+                                <label class="op"><input type="radio"
+                                        name="idade"
+                                        value="50 anos ou mais"><span>50 anos ou mais</span></label>
                             </div>
-                            <div class="outro-wrap" id="outro-relacaoTrabalho" hidden>
-                                <input type="text" name="relacaoTrabalho_outro" placeholder="Especifique a relação de trabalho">
+                        </div>
+
+                        <div class="campo" id="campo-curso">
+                            <p class="campo-label">3. Qual é o seu curso? <span
+                                    class="req">*</span></p>
+                            <div class="search-select" id="curso-search-select"
+                                data-placeholder="Digite para buscar seu curso...">
+                                <input type="text" class="search-select-input"
+                                    placeholder="Digite para buscar seu curso..."
+                                    autocomplete="off" readonly>
+                                <input type="hidden" name="curso" value>
+                                <div class="search-select-dropdown" hidden>
+                                    <input type="text"
+                                        class="search-select-search"
+                                        placeholder="Buscar curso..."
+                                        autocomplete="off">
+                                    <ul class="search-select-list"
+                                        role="listbox"></ul>
+                                </div>
                             </div>
                         </div>
 
-                    </div>
-                </div>
-            </section>
+                        <div class="campo" id="campo-semestre">
+                            <p class="campo-label">4. Em qual semestre/período do curso você está? <span
+                                    class="req">*</span></p>
+                            <div class="opcoes">
+                                <label class="op"><input type="radio"
+                                        name="semestre"
+                                        value="1º ao 2º semestre"><span>1º ao 2º semestre</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="semestre"
+                                        value="3º ao 4º semestre"><span>3º ao 4º semestre</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="semestre"
+                                        value="5º ao 6º semestre"><span>5º ao 6º semestre</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="semestre"
+                                        value="7º ao 8º semestre"><span>7º ao 8º semestre</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="semestre"
+                                        value="9º semestre ou superior"><span>9º semestre ou superior</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="semestre"
+                                        value="formado"><span>Graduado/Formado</span>
+                                </label>
+                            </div>
+                        </div>
 
-            <!-- ETAPA 3 — PERCEPÇÃO -->
-            <section class="step" id="step-3" data-title="Liderança">
-                <div class="card">
-                    <span class="eyebrow">Etapa 4 · Percepção</span>
-                    <h2>Percepção sobre o perfil de liderança</h2>
-                    <p class="lead">Considerando o <strong>líder, chefe ou superior com quem você possui maior contato</strong> no seu trabalho atual, indique o quanto você concorda com cada afirmação.</p>
-                    <div class="legenda">
-                        <span><b>1</b> Discordo totalmente</span>
-                        <span><b>2</b> Discordo parcialmente</span>
-                        <span><b>3</b> Nem concordo nem discordo</span>
-                        <span><b>4</b> Concordo parcialmente</span>
-                        <span><b>5</b> Concordo totalmente</span>
-                    </div>
-                    <div id="listaPercepcao"></div>
-                </div>
-            </section>
+                        <div class="campo" id="campo-turnoEstudo">
+                            <p class="campo-label">5. Qual é o turno em que você estuda? <span class="req">*</span></p>
+                            <div class="opcoes">
+                                <label class="op"><input type="radio"
+                                        name="turnoEstudo"
+                                        value="Matutino"><span>Matutino</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="turnoEstudo"
+                                        value="Vespertino"><span>Vespertino</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="turnoEstudo"
+                                        value="Noturno"><span>Noturno</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="turnoEstudo"
+                                        value="Diurno"><span>Manhã/Tarde (Diurno)</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="turnoEstudo"
+                                        value="Integral"><span>Integral</span>
+                                </label>
+                            </div>
+                        </div>
 
-            <!-- ETAPA 4 — PERFIL -->
-            <section class="step" id="step-4" data-title="Perfil">
-                <div class="card">
-                    <span class="eyebrow">Etapa 5 · Perfil predominante</span>
-                    <h2>Identificação do perfil predominante</h2>
-                    <p class="lead">Escolha apenas uma alternativa.</p>
+                        <div class="campo" id="campo-trabalha">
+                            <p class="campo-label">6. Você trabalha atualmente?
+                                <span class="req">*</span></p>
+                            <div class="opcoes">
+                                <label class="op"><input type="radio"
+                                        name="trabalha"
+                                        value="Sim"><span>Sim</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="trabalha"
+                                        value="Não"><span>Não</span>
+                                </label>
+                            </div>
+                            <p class="footer-hint" style="margin-top:10px">Se você selecionar "Não", o formulário será encerrado automaticamente.</p>
+                        </div>
 
-                    <div class="campo" id="campo-perfil">
-                        <p class="campo-label">9. Considerando sua experiência atual, qual característica melhor descreve o comportamento predominante do seu líder? <span class="req">*</span></p>
-                        <div class="opcoes">
-                            <label class="op"><input type="radio" name="perfil" value="Centralizador"><span>Concentra as decisões, determina o que deve ser feito e exerce maior controle sobre a equipe.</span></label>
-                            <label class="op"><input type="radio" name="perfil" value="Participativo"><span>Orienta a equipe, mas estimula a participação dos integrantes nas decisões.</span></label>
-                            <label class="op"><input type="radio" name="perfil" value="Delegador"><span>Delega grande parte das decisões aos integrantes da equipe, proporcionando ampla liberdade para a realização das atividades.</span></label>
-                            <label class="op"><input type="radio" name="perfil" value="Adaptativo"><span>Aodifica sua forma de orientar e apoiar a equipe conforme a situação, as necessidades da tarefa e as características dos integrantes.</span></label>
-                            <label class="op"><input type="radio" name="perfil" value="Não consigo identificar um perfil predominante"><span>Não consigo identificar um perfil predominante.</span></label>
+                        <div id="blocoTrabalho" hidden>
+
+                            <div class="campo" id="campo-turnoTrabalho">
+                                <p class="campo-label">7. Qual é o seu turno de trabalho? <span class="req">*</span></p>
+                                <div class="opcoes">
+                                    <label class="op"><input type="radio"
+                                            name="turnoTrabalho"
+                                            value="Manhã"><span>Manhã</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="turnoTrabalho"
+                                            value="Tarde"><span>Tarde</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="turnoTrabalho"
+                                            value="Noite"><span>Noite</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="turnoTrabalho"
+                                            value="Integral"><span>Integral</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="turnoTrabalho"
+                                            value="Escala/revezamento"><span>Escala/revezamento</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="turnoTrabalho"
+                                            value="Horário flexível"><span>Horário
+                                            flexível</span></label>
+                                    <label class="op"><input type="radio"
+                                            name="turnoTrabalho"
+                                            value="Outro"><span>Outro</span>
+                                    </label>
+                                </div>
+                                <div class="outro-wrap" id="outro-turnoTrabalho"
+                                    hidden>
+                                    <input type="text"
+                                        name="turnoTrabalho_outro"
+                                        placeholder="Especifique o turno de trabalho">
+                                </div>
+                            </div>
+
+                            <div class="campo" id="campo-tempoEmpresa">
+                                <p class="campo-label">8. Há quanto tempo você trabalha na sua ocupação/empresa atual? <span class="req">*</span></p>
+                                <div class="opcoes">
+                                    <label class="op"><input type="radio"
+                                            name="tempoEmpresa"
+                                            value="Menos de 6 meses"><span>Menos de 6 meses</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="tempoEmpresa"
+                                            value="De 6 meses a 1 ano"><span>De 6 meses a 1 ano</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="tempoEmpresa"
+                                            value="De 1 a 2 anos"><span>De 1 a 2 anos</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="tempoEmpresa"
+                                            value="De 2 a 5 anos"><span>De 2 a 5 anos</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="tempoEmpresa"
+                                            value="Mais de 5 anos"><span>Mais de 5 anos</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="campo" id="campo-relacaoTrabalho">
+                                <p class="campo-label">9. Qual é a sua relação de trabalho atualmente? <span class="req">*</span></p>
+                                <div class="opcoes">
+                                    <label class="op"><input type="radio"
+                                            name="relacaoTrabalho"
+                                            value="Empregado(a) com carteira assinada"><span>Empregado(a) com carteira assinada</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="relacaoTrabalho"
+                                            value="Estagiário(a)"><span>Estagiário(a)</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="relacaoTrabalho"
+                                            value="Bolsista"><span>Bolsista</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="relacaoTrabalho"
+                                            value="Servidor(a) público(a)"><span>Servidor(a) público(a)</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="relacaoTrabalho"
+                                            value="Trabalhador(a) autônomo(a)"><span>Trabalhador(a) autônomo(a)</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="relacaoTrabalho"
+                                            value="Empresário(a)/empreendedor(a)"><span>Empresário(a)/empreendedor(a)</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="relacaoTrabalho"
+                                            value="Contrato temporário"><span>Contrato temporário</span>
+                                    </label>
+                                    <label class="op"><input type="radio"
+                                            name="relacaoTrabalho"
+                                            value="Outro"><span>Outro</span>
+                                    </label>
+                                </div>
+                                <div class="outro-wrap"
+                                    id="outro-relacaoTrabalho" hidden>
+                                    <input type="text"
+                                        name="relacaoTrabalho_outro"
+                                        placeholder="Especifique a relação de trabalho">
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- ETAPA 5 — MOTIVAÇÃO -->
-            <section class="step" id="step-5" data-title="Motivação">
-                <div class="card">
-                    <span class="eyebrow">Etapa 6 · Motivação e satisfação</span>
-                    <h2>Motivação, satisfação e participação</h2>
-                    <p class="lead">Indique o quanto você concorda com cada afirmação.</p>
-                    <div class="legenda">
-                        <span><b>1</b> Discordo totalmente</span>
-                        <span><b>2</b> Discordo parcialmente</span>
-                        <span><b>3</b> Nem concordo nem discordo</span>
-                        <span><b>4</b> Concordo parcialmente</span>
-                        <span><b>5</b> Concordo totalmente</span>
-                    </div>
-                    <div id="listaMotivacao"></div>
-                </div>
-            </section>
-
-            <!-- ETAPA 6 — FATORES -->
-            <section class="step" id="step-6" data-title="Fatores">
-                <div class="card">
-                    <span class="eyebrow">Etapa 7 · Fatores de motivação</span>
-                    <h2>Fatores de motivação</h2>
-
-                    <div class="campo" id="campo-fatores">
-                        <p class="campo-label" style="justify-content:space-between;align-items:center">
-                            <span>15. Quais fatores mais contribuem para sua motivação no trabalho? <span class="req">*</span></span>
-                            <span class="contador" id="contadorFatores">0/3</span>
-                        </p>
-                        <p class="footer-hint" style="margin:0 0 4px">Selecione até 3 alternativas.</p>
-                        <div class="opcoes">
-                            <label class="op"><input type="checkbox" name="fatores" value="Reconhecimento pelo trabalho realizado"><span>Reconhecimento pelo trabalho realizado</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Respeito e tratamento adequado por parte da liderança"><span>Respeito e tratamento adequado por parte da liderança</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Bom relacionamento com os colegas"><span>Bom relacionamento com os colegas</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Participação nas decisões"><span>Participação nas decisões</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Autonomia para realizar minhas atividades"><span>Autonomia para realizar minhas atividades</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Oportunidades de crescimento profissional"><span>Oportunidades de crescimento profissional</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Possibilidade de desenvolver minhas habilidades"><span>Possibilidade de desenvolver minhas habilidades</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Segurança e estabilidade no trabalho"><span>Segurança e estabilidade no trabalho</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Remuneração e benefícios"><span>Remuneração e benefícios</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Sentimento de que meu trabalho possui propósito e significado"><span>Sentimento de que meu trabalho possui propósito e significado</span></label>
-                            <label class="op"><input type="checkbox" name="fatores" value="Outro"><span>Outro</span></label>
+                <!-- ETAPA 3 — PERCEPÇÃO -->
+                <section class="step" id="step-3" data-title="Liderança">
+                    <div class="card">
+                        <span class="eyebrow">Etapa 4 · Percepção</span>
+                        <h2>Percepção sobre o perfil de liderança</h2>
+                        <p class="lead">Considerando o <strong>líder, chefe ou superior com quem você possui maior contato</strong> no seu trabalho atual, indique o quanto você concorda com cada afirmação.</p>
+                        <div class="legenda">
+                            <span><b style="background-color: #ea9999; color: #7f1d1d; padding: 2px 8px; border-radius: 4px;">1</b> Discordo totalmente</span>
+                            <span><b style="background-color: #fce5cd; color: #7c2d12; padding: 2px 8px; border-radius: 4px;">2</b> Discordo parcialmente</span>
+                            <span><b style="background-color: #e2e8f0; color: #334155; padding: 2px 8px; border-radius: 4px;">3</b> Nem concordo nem discordo</span>
+                            <span><b style="background-color: #d9ead3; color: #14532d; padding: 2px 8px; border-radius: 4px;">4</b> Concordo parcialmente</span>
+                            <span><b style="background-color: #b6d7a8; color: #064e3b; padding: 2px 8px; border-radius: 4px;">5</b> Concordo totalmente</span>
                         </div>
-                        <div class="outro-wrap" id="outro-fatores" hidden>
-                            <input type="text" name="fatores_outro" placeholder="Especifique outro fator">
+                        <div id="listaPercepcao"></div>
+                    </div>
+                </section>
+
+                <!-- ETAPA 4 — PERFIL -->
+                <section class="step" id="step-4" data-title="Perfil">
+                    <div class="card">
+                        <span class="eyebrow">Etapa 5 · Perfil predominante</span>
+                        <h2>Identificação do perfil predominante</h2>
+                        <p class="lead">Escolha apenas uma alternativa.</p>
+
+                        <div class="campo" id="campo-perfil">
+                            <p class="campo-label">9. Considerando sua experiência atual, qual característica melhor descreve o comportamento predominante do seu líder? <span class="req">*</span></p>
+                            <div class="opcoes">
+                                <label class="op"><input type="radio"
+                                        name="perfil"
+                                        value="Centralizador"><span>Concentra as decisões, determina o que deve ser feito e exerce maior controle sobre a equipe.</span></label>
+                                <label class="op"><input type="radio"
+                                        name="perfil"
+                                        value="Participativo"><span>Orienta a equipe, mas estimula a participação dos integrantes nas decisões.</span></label>
+                                <label class="op"><input type="radio"
+                                        name="perfil"
+                                        value="Delegador"><span>Delega grande parte das decisões aos integrantes da equipe, proporcionando ampla liberdade para a realização das atividades.</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="perfil"
+                                        value="Adaptativo"><span>Modifica sua forma de orientar e apoiar a equipe conforme a situação, as necessidades da tarefa e as características dos integrantes.</span>
+                                </label>
+                                <label class="op"><input type="radio"
+                                        name="perfil"
+                                        value="Não consigo identificar um perfil predominante"><span>Não consigo identificar um perfil predominante.</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- ETAPA 7 — REVISÃO -->
-            <section class="step" id="step-7" data-title="Revisão">
-                <div class="card">
-                    <span class="eyebrow">Etapa 8 · Revisão</span>
-                    <h2>Revisão das suas respostas</h2>
-                    <p class="lead">Confira abaixo o resumo das suas respostas. Se necessário, use o botão <strong>Voltar</strong> para corrigir alguma informação antes de enviar.</p>
-
-                    <div id="resumo"></div>
-
-                    <div class="acoes" style="margin-top:22px;justify-content:flex-start">
-                        <button type="button" class="btn ghost small" id="btnBaixarRascunho">⬇ Baixar respostas (JSON)</button>
-                        <button type="button" class="btn ghost small" id="btnCopiarRascunho">⧉ Copiar respostas</button>
-                        <button type="button" class="btn ghost small" id="btnLimparRascunho">🗑 Limpar rascunho salvo</button>
+                <!-- ETAPA 5 — MOTIVAÇÃO -->
+                <section class="step" id="step-5" data-title="Motivação">
+                    <div class="card">
+                        <span class="eyebrow">Etapa 6 · Motivação e satisfação</span>
+                        <h2>Motivação, satisfação e participação</h2>
+                        <p class="lead">Indique o quanto você concorda com cada afirmação.</p>
+                        <div class="legenda">
+                            <span><b style="background-color: #ea9999; color: #7f1d1d; padding: 2px 8px; border-radius: 4px;">1</b> Discordo totalmente</span>
+                            <span><b style="background-color: #fce5cd; color: #7c2d12; padding: 2px 8px; border-radius: 4px;">2</b> Discordo parcialmente</span>
+                            <span><b style="background-color: #e2e8f0; color: #334155; padding: 2px 8px; border-radius: 4px;">3</b> Nem concordo nem discordo</span>
+                            <span><b style="background-color: #d9ead3; color: #14532d; padding: 2px 8px; border-radius: 4px;">4</b> Concordo parcialmente</span>
+                            <span><b style="background-color: #b6d7a8; color: #064e3b; padding: 2px 8px; border-radius: 4px;">5</b> Concordo totalmente</span>
+                        </div>
+                        <div id="listaMotivacao"></div>
                     </div>
+                </section>
 
-                    <p class="footer-hint" style="margin-top:18px">
-                        Ao clicar em <strong>Enviar respostas</strong>, você confirma que leu o TCLE e que suas respostas podem ser utilizadas para fins acadêmicos e didáticos.
-                    </p>
+                <!-- ETAPA 6 — FATORES -->
+                <section class="step" id="step-6" data-title="Fatores">
+                    <div class="card">
+                        <span class="eyebrow">Etapa 7 · Fatores de motivação</span>
+                        <h2>Fatores de motivação</h2>
+
+                        <div class="campo" id="campo-fatores">
+                            <p class="campo-label"
+                                style="justify-content:space-between;align-items:center">
+                                <span>15. Quais fatores mais contribuem para sua motivação no trabalho? <span
+                                        class="req">*</span></span>
+                                <span class="contador"
+                                    id="contadorFatores">0/3</span>
+                            </p>
+                            <p class="footer-hint"
+                                style="margin:0 0 4px">Selecione até 3
+                                alternativas.</p>
+                            <div class="opcoes">
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Reconhecimento pelo trabalho realizado"><span>Reconhecimento pelo trabalho realizado</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Respeito e tratamento adequado por parte da liderança"><span>Respeito e tratamento adequado por parte da liderança</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Bom relacionamento com os colegas"><span>Bom relacionamento com os colegas</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Participação nas decisões"><span>Participação nas decisões</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Autonomia para realizar minhas atividades"><span>Autonomia para realizar minhas atividades</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Oportunidades de crescimento profissional"><span>Oportunidades de crescimento profissional</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Possibilidade de desenvolver minhas habilidades"><span>Possibilidade de desenvolver minhas habilidades</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Segurança e estabilidade no trabalho"><span>Segurança e estabilidade no trabalho</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Remuneração e benefícios"><span>Remuneração e benefícios</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Sentimento de que meu trabalho possui propósito e significado"><span>Sentimento de que meu trabalho possui propósito e significado</span></label>
+                                <label class="op"><input type="checkbox"
+                                        name="fatores"
+                                        value="Outro"><span>Outro</span></label>
+                            </div>
+                            <div class="outro-wrap" id="outro-fatores" hidden>
+                                <input type="text" name="fatores_outro"
+                                    placeholder="Especifique outro fator">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ETAPA 7 — REVISÃO -->
+                <section class="step" id="step-7" data-title="Revisão">
+                    <div class="card">
+                        <span class="eyebrow">Etapa 8 · Revisão</span>
+                        <h2>Revisão das suas respostas</h2>
+                        <p class="lead">Confira abaixo o resumo das suas respostas. Se necessário, use o botão <strong>Voltar</strong> para corrigir alguma informação antes de enviar.</p>
+
+                        <div id="resumo"></div>
+
+                        <div class="acoes"
+                            style="margin-top:22px;justify-content:flex-start">
+                            <button type="button" class="btn ghost small"
+                                id="btnBaixarRascunho">⬇ Baixar respostas (JSON)</button>
+                            <button type="button" class="btn ghost small"
+                                id="btnCopiarRascunho">⧉ Copiar respostas</button>
+                            <button type="button" class="btn ghost small"
+                                id="btnLimparRascunho">🗑 Limpar rascunho salvo</button>
+                        </div>
+
+                        <p class="footer-hint" style="margin-top:18px">Ao clicar em <strong>Enviar respostas</strong>, você confirma que leu o TCLE e que suas respostas podem ser utilizadas para fins acadêmicos e didáticos.</p>
+                    </div>
+                </section>
+
+            </form>
+
+            <div class="card final" id="telaEncerramento" hidden>
+                <div class="final-icon"
+                    style="background:linear-gradient(135deg,#64748b,#94a3b8);box-shadow:none">i</div>
+                <h2 id="encTitulo">Formulário encerrado</h2>
+                <p id="encMensagem"></p>
+                <div class="acoes">
+                    <button type="button" class="btn primary"
+                        id="btnReiniciarEnc">Responder novamente</button>
                 </div>
-            </section>
-
-        </form>
-
-        <div class="card final" id="telaEncerramento" hidden>
-            <div class="final-icon" style="background:linear-gradient(135deg,#64748b,#94a3b8);box-shadow:none">i</div>
-            <h2 id="encTitulo">Formulário encerrado</h2>
-            <p id="encMensagem"></p>
-            <div class="acoes">
-                <button type="button" class="btn primary" id="btnReiniciarEnc">Responder novamente</button>
             </div>
-        </div>
 
-        <div class="card final" id="telaFinal" hidden>
-            <div class="final-icon">✓</div>
-            <h2>Respostas registradas com sucesso!</h2>
-            <p>
-                Agradecemos sua participação e contribuição para esta pesquisa acadêmica. Suas respostas contribuirão para a compreensão das relações de liderança no ambiente de trabalho a partir da perspectiva da Psicologia Organizacional e do Trabalho e da Abordagem
-                Humanística.
-            </p>
-            <div class="acoes">
-                <button type="button" class="btn primary" id="btnBaixar">⬇ Baixar respostas (JSON)</button>
-                <button type="button" class="btn ghost" id="btnCopiar">⧉ Copiar respostas</button>
-                <button type="button" class="btn ghost" id="btnNova">Responder novamente</button>
+            <div class="card final" id="telaFinal" hidden>
+                <div class="final-icon">✓</div>
+                <h2>Respostas registradas com sucesso!</h2>
+                <p>Agradecemos sua participação e contribuição para esta pesquisa acadêmica. Suas respostas contribuirão para a compreensão das relações de liderança no ambiente de trabalho a partir da perspectiva da Psicologia Organizacional e do Trabalho e da Abordagem Humanística.</p>
+                <div class="acoes">
+                    <button type="button" class="btn primary" id="btnBaixar">⬇ Baixar respostas (JSON)</button>
+                    <button type="button" class="btn ghost" id="btnCopiar">⧉ Copiar respostas</button>
+                    <button type="button" class="btn ghost"
+                        id="btnNova">Responder novamente</button>
+                </div>
+                <p class="footer-hint" style="margin-top:20px">Muito obrigado(a) pela participação!</p>
             </div>
-            <p class="footer-hint" style="margin-top:20px">Muito obrigado(a) pela participação!</p>
-        </div>
-    </main>
+        </main>
 
-    <nav class="footer-nav" id="footerNav">
-        <div class="inner">
-            <button type="button" class="btn ghost" id="btnVoltar">← Voltar</button>
-            <span class="footer-hint" id="footerHint"></span>
-            <button type="button" class="btn primary" id="btnAvancar">Continuar →</button>
-        </div>
-    </nav>
+        <nav class="footer-nav" id="footerNav">
+            <div class="inner">
+                <button type="button" class="btn ghost" id="btnVoltar">← Voltar</button>
+                <span class="footer-hint" id="footerHint"></span>
+                <button type="button" class="btn primary"
+                    id="btnAvancar">Continuar →</button>
+            </div>
+        </nav>
 
-    <script>
+        <script>
         /* ============================================================
-                   1. DADOS DAS QUESTÕES
-                   ============================================================ */
+                           1. DADOS DAS QUESTÕES
+                           ============================================================ */
         const ESCALA = [{
             v: 1,
             t: 'Discordo totalmente'
@@ -1351,41 +1557,123 @@
 
         const CURSOS = [
             'Administração Bacharelado',
+            'Administração Pública Bacharelado',
             'Agronomia Bacharelado',
+            'Análise e Desenvolvimento de Sistemas Tecnólogo',
+            'Antropologia Bacharelado',
             'Arquitetura e Urbanismo Bacharelado',
+            'Arquivologia Bacharelado',
+            'Artes Visuais Bacharelado',
+            'Artes Visuais Licenciatura',
+            'Astronomia Bacharelado',
+            'Biblioteconomia Bacharelado',
+            'Biomedicina Bacharelado',
+            'Ciência da Computação Bacharelado',
+            'Ciência de Dados Bacharelado',
+            'Ciências Atuariais Bacharelado',
             'Ciências Biológicas Bacharelado',
             'Ciências Biológicas Licenciatura',
             'Ciências Contábeis Bacharelado',
             'Ciências Econômicas Bacharelado',
             'Ciências Sociais Bacharelado',
             'Ciências Sociais Licenciatura',
-            'Curso de Formação de Oficiais',
+            'Cinema e Audiovisual Bacharelado',
+            'Comércio Exterior Tecnólogo',
+            'Comunicação Social Bacharelado',
+            'Design Bacharelado',
+            'Design de Interiores Tecnólogo',
+            'Design de Moda Bacharelado',
             'Direito Bacharelado',
-            'Engenharia Agronômica',
-            'Engenharia Civil Bacharelado',
-            'Engenharia da Computação Bacharelado',
+            'Educação Física Bacharelado',
+            'Educação Física Licenciatura',
+            'Enfermagem Bacharelado',
+            'Engenharia Ambiental Bacharelado',
+            'Engenharia Ambiental e Sanitária Bacharelado',
+            'Engenharia de Alimentos Bacharelado',
+            'Engenharia de Automação e Controle Bacharelado',
+            'Engenharia de Computação Bacharelado',
+            'Engenharia de Energia Bacharelado',
+            'Engenharia de Materiais Bacharelado',
+            'Engenharia de Minas Bacharelado',
             'Engenharia de Pesca Bacharelado',
             'Engenharia de Produção Bacharelado',
+            'Engenharia de Software Bacharelado',
+            'Engenharia Elétrica Bacharelado',
+            'Engenharia Eletrônica Bacharelado',
+            'Engenharia Florestal Bacharelado',
             'Engenharia Mecânica Bacharelado',
+            'Engenharia Mecatrônica Bacharelado',
+            'Engenharia Metalúrgica Bacharelado',
+            'Engenharia Naval Bacharelado',
+            'Engenharia Química Bacharelado',
+            'Engenharia Sanitária e Ambiental Bacharelado',
+            'Engenharia de Telecomunicações Bacharelado',
+            'Estatística Bacharelado',
+            'Farmácia Bacharelado',
+            'Filosofia Bacharelado',
             'Filosofia Licenciatura',
+            'Física Bacharelado',
             'Física Licenciatura',
+            'Fisioterapia Bacharelado',
+            'Fonoaudiologia Bacharelado',
             'Geografia Bacharelado',
             'Geografia Licenciatura',
+            'Gestão Ambiental Tecnólogo',
+            'Gestão Comercial Tecnólogo',
+            'Gestão de Recursos Humanos Tecnólogo',
+            'Gestão Financeira Tecnólogo',
+            'Gestão Pública Tecnólogo',
+            'História Bacharelado',
             'História Licenciatura',
+            'Hotelaria Bacharelado',
             'Inteligência Artificial Bacharelado',
+            'Jornalismo Bacharelado',
             'Letras Licenciatura em Língua Portuguesa e Literaturas da Língua Portuguesa',
             'Letras Licenciatura em Língua Portuguesa, Língua Espanhola e Literaturas',
             'Letras Licenciatura em Língua Portuguesa, Língua Inglesa e Literaturas',
+            'Letras Libras Licenciatura',
+            'Marketing Tecnólogo',
+            'Matemática Bacharelado',
             'Matemática Licenciatura',
             'Medicina Bacharelado',
             'Medicina Veterinária Bacharelado',
             'Meteorologia Bacharelado',
+            'Música Bacharelado',
             'Música Licenciatura',
+            'Nutrição Bacharelado',
+            'Odontologia Bacharelado',
             'Pedagogia Licenciatura',
+            'Produção Cultural Bacharelado',
             'Psicologia Bacharelado',
+            'Publicidade e Propaganda Bacharelado',
+            'Química Bacharelado',
             'Química Licenciatura',
             'Relações Internacionais Bacharelado',
-            'Zootecnia Bacharelado'
+            'Relações Públicas Bacharelado',
+            'Secretariado Executivo Bacharelado',
+            'Serviço Social Bacharelado',
+            'Sistemas de Informação Bacharelado',
+            'Teatro Bacharelado',
+            'Teatro Licenciatura',
+            'Turismo Bacharelado',
+            'Zootecnia Bacharelado',
+
+            // Formação específica
+            'Curso de Formação de Oficiais',
+            'Curso de Formação de Oficiais Bombeiro Militar',
+            'Curso de Formação de Oficiais da Polícia Militar',
+
+            // Outros cursos tecnológicos
+            'Automação Industrial Tecnólogo',
+            'Construção de Edifícios Tecnólogo',
+            'Design Gráfico Tecnólogo',
+            'Eletrotécnica Industrial Tecnólogo',
+            'Logística Tecnólogo',
+            'Processos Gerenciais Tecnólogo',
+            'Redes de Computadores Tecnólogo',
+            'Segurança do Trabalho Tecnólogo',
+            'Segurança da Informação Tecnólogo',
+            'Sistemas para Internet Tecnólogo'
         ];
 
         const PERCEPCAO = [{
@@ -1466,6 +1754,9 @@
         }, {
             titulo: 'Caracterização dos participantes',
             itens: [{
+                n: 'sexo',
+                l: '1. Sexo'
+            }, {
                 n: 'idade',
                 l: '1. Idade'
             }, {
@@ -1771,6 +2062,7 @@
             }
 
             if (i === 2) {
+                if (!checked('sexo')) { faltando.push('sexo'); marcarInvalido('sexo'); }
                 if (!checked('idade')) { faltando.push('idade'); marcarInvalido('idade'); }
                 const curso = document.querySelector('input[name="curso"]');
                 if (!curso.value.trim()) { faltando.push('curso'); marcarInvalido('curso'); }
@@ -2037,7 +2329,7 @@
             const data = coletarDados();
             data._meta = {
                 pesquisa: 'Perfil de Liderança no Trabalho: Percepção dos Estudantes Universitários',
-                disciplina: 'Psicologia Organizacional e do Trabalho – Abordagem Humanística',
+                disciplina: 'Psicologia do Trabalho',
                 grupo: 'Grupo 1',
                 dataEnvio: new Date().toISOString()
             };
@@ -2191,6 +2483,6 @@
         atualizarProgresso();
         atualizarBotoes();
     </script>
-</body>
+    </body>
 
 </html>
